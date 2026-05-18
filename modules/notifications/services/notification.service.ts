@@ -1,0 +1,29 @@
+import prisma from '@/shared/infrastructure/database/db'
+import { NotificationService } from '../contracts/notification.contract'
+import {
+  notificationSelect,
+  type Notification
+} from '../infrastructure/notification.mapper'
+import { AppError } from '@/shared/domain/errors/app-error'
+
+export const notificationService: NotificationService = {
+  getMany(): Promise<Notification[]> {
+    return prisma.notification.findMany({
+      select: notificationSelect,
+      where: { isRead: false }
+    })
+  },
+  async getById(notificationId: string): Promise<Notification> {
+    const notification = await prisma.notification.findUnique({
+      where: { id: notificationId },
+      select: notificationSelect
+    })
+
+    if (!notification) throw new AppError('Notificación no encontrada', true)
+
+    return notification
+  },
+  async delete(notificationId: string) {
+    await prisma.notification.delete({ where: { id: notificationId } })
+  }
+}

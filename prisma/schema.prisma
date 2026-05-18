@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+//Models
+
+enum Type {
+  ENTRADA
+  SALIDA
+}
+
+enum ActionType {
+  CREAR
+  ACTUALIZAR
+  ELIMINAR
+  ACTIVAR
+  DESACTIVAR
+}
+
+enum Entity {
+  USUARIO
+  PRODUCTO
+  CATEGORIA
+  MOVIMIENTO_INVENTARIO
+}
+
+model User {
+  id                 String              @id @default(cuid())
+  name               String
+  lastName           String
+  imgUrl             String?
+  username           String              @unique
+  password           String
+  isActive           Boolean             @default(true)
+  isSelect           Boolean             @default(false)
+  inventoryMovements InventoryMovement[]
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
+  activities         Activity[]
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  isSelect  Boolean   @default(false)
+  isActive  Boolean   @default(true)
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Product {
+  id                 String              @id @default(cuid())
+  name               String              @unique
+  description        String?
+  price              Decimal             @db.Decimal(10, 2)
+  stock              Int
+  isSelect           Boolean             @default(false)
+  isActive           Boolean             @default(true)
+  inventoryMovements InventoryMovement[]
+  category           Category            @relation(fields: [categoryId], references: [id])
+  categoryId         String
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  deletedAt          DateTime?
+}
+
+model InventoryMovement {
+  id        String    @id @default(cuid())
+  type      Type
+  quantity  Int
+  date      DateTime  @default(now())
+  product   Product   @relation(fields: [productId], references: [id])
+  productId String
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Activity {
+  id          String     @id @default(cuid())
+  actionType  ActionType
+  entity      Entity
+  entityId    String
+  description String
+  metadata    Json?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
