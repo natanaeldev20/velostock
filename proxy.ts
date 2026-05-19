@@ -16,5 +16,5 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: ['/admin/:path*', '/auth/login']
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)']
 }
