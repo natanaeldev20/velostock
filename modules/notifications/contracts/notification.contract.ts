@@ -2,7 +2,10 @@ import type { Notification } from '../infrastructure/notification.mapper'
 
 export interface NotificationService {
   getMany: () => Promise<Notification[]>
+  getManyRead: () => Promise<Notification[]>
+  getManyUnread: () => Promise<Notification[]>
   getById: (notificationId: string) => Promise<Notification>
+  read: (notificationId: string) => Promise<void>
   delete: (notificationId: string) => Promise<void>
 }
 

@@ -1,5 +1,5 @@
-import { getNotifications } from '../actions'
 import { NotificationList } from './notification-list'
+import { getNotifications } from '../actions'
 
 export async function NotificationContainer() {
   const { ok, data } = await getNotifications()

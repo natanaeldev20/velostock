@@ -9,7 +9,7 @@ export function NotificationList({ notifications }: NotificationListProps) {
           <NotificationCard key={item.id} notification={item} />
         ))
       ) : (
-        <p className="text-sm">No hay notificaciones</p>
+        <p className="text-sm dark:text-white/80">No hay notificaciones</p>
       )}
     </div>
   )
