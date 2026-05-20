@@ -49,6 +49,11 @@ export const notificationService: NotificationService = {
   },
 
   async delete(notificationId: string) {
+    const notification = await prisma.notification.findUnique({
+      where: { id: notificationId }
+    })
+
+    if (!notification) throw new AppError('Notificación no encontrada')
     await prisma.notification.delete({ where: { id: notificationId } })
   }
 }

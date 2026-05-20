@@ -1,22 +1,21 @@
 'use client'
 
-import { Avatar, Button } from '@heroui/react'
+import { Avatar } from '@heroui/react'
 import { Card } from '@heroui/react'
-import { TrashBin } from '@gravity-ui/icons'
+import { BellFill } from '@gravity-ui/icons'
 import Link from 'next/link'
 import type { NotificationCard as NotificationCardProps } from '../contracts/notification.contract'
+import { DeleteNotificationButton } from './delete-notification-button'
 
 export function NotificationCard({ notification }: NotificationCardProps) {
+  const URL_DEFAULT = notification.url ?? '/admin'
+
   return (
-    <Link className="z-10" href="/admin/categories">
+    <Link className="z-10" href={URL_DEFAULT}>
       <Card variant="secondary" className="flex flex-row items-center">
         <div>
           <Avatar size="lg">
-            <Avatar.Image
-              className="object-cover"
-              alt="Averly"
-              src="https://akamai.sscdn.co/uploadfile/letras/fotos/3/2/3/a/323a0b69f882cd2d642c521d655d7ed9.jpg"
-            />
+            <BellFill />
           </Avatar>
         </div>
         <Card.Content>
@@ -26,17 +25,7 @@ export function NotificationCard({ notification }: NotificationCardProps) {
           </Card.Description>
         </Card.Content>
         <div>
-          <Button
-            isIconOnly
-            variant="danger"
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-            }}
-            className="z-20"
-          >
-            <TrashBin />
-          </Button>
+          <DeleteNotificationButton notificationId={notification.id} />
         </div>
       </Card>
     </Link>

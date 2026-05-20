@@ -3,6 +3,7 @@
 import { handleAction } from '@/shared/infrastructure/handlers/handle-action'
 import { notificationService } from '../services/notification.service'
 import { validateId } from '@/shared/utils/validations'
+import { revalidatePath } from 'next/cache'
 
 export const getNotifications = async () =>
   handleAction(() => notificationService.getMany())
@@ -28,9 +29,10 @@ export const readNotification = async (notificationId: string) =>
 
 export const deleteNotification = async (notificationId: string) =>
   handleAction(
-    () => {
+    async () => {
       const validatedId = validateId(notificationId)
-      return notificationService.delete(validatedId)
+      await notificationService.delete(validatedId)
+      revalidatePath('/admin/notifications')
     },
     { successMessage: () => 'Se eliminó la notificación con exitó' }
   )

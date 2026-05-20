@@ -26,10 +26,14 @@ export default function NotificationsPage() {
             </Tabs.List>
           </Tabs.ListContainer>
           <Tabs.Panel id="all">
-            <NotificationContainer />
+            <Suspense fallback={<NotificationListSkeleton />}>
+              <NotificationContainer />
+            </Suspense>
           </Tabs.Panel>
           <Tabs.Panel id="unread">
-            <UnreadNotificationContainer />
+            <Suspense fallback={<NotificationListSkeleton />}>
+              <UnreadNotificationContainer />
+            </Suspense>
           </Tabs.Panel>
         </Tabs>
       </div>
