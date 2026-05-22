@@ -35,6 +35,13 @@ export const notificationService: NotificationService = {
     return notification
   },
 
+  async getTotal(): Promise<{ notifications: number }> {
+    const notifications = await prisma.notification.count({
+      where: { isRead: false }
+    })
+    return { notifications }
+  },
+
   async read(notificationId: string) {
     const notification = await prisma.notification.findUnique({
       where: { id: notificationId }

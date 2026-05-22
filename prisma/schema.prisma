@@ -13,6 +13,14 @@ enum Type {
   SALIDA
 }
 
+enum MovementReason {
+  COMPRA // Entrada por compra a proveedor
+  VENTA // Salida por venta a cliente
+  DEVOLVER // Entrada por devolución de cliente
+  DAÑO // Salida por mercancía dañada/merma
+  AUDITORÍA_FÍSICA // Ajuste manual por conteo físico
+}
+
 enum ActionType {
   CREAR
   ACTUALIZAR
@@ -72,17 +80,18 @@ model Product {
 }
 
 model InventoryMovement {
-  id        String    @id @default(cuid())
-  type      Type
-  quantity  Int
-  date      DateTime  @default(now())
-  product   Product   @relation(fields: [productId], references: [id])
-  productId String
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id          String    @id @default(cuid())
+  type        Type
+  priceAtMove Decimal   @db.Decimal(10, 2)
+  quantity    Int
+  date        DateTime  @default(now())
+  product     Product   @relation(fields: [productId], references: [id])
+  productId   String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
 
 model Activity {

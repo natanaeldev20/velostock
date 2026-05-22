@@ -1,21 +1,13 @@
-import { Badge, Button, Popover } from '@heroui/react'
-import { Bell } from '@gravity-ui/icons'
-import { Icon } from '@gravity-ui/uikit'
+import { Button, Popover } from '@heroui/react'
 import { UnreadNotificationContainer } from '@/modules/notifications/components/unread-notification-container'
 import Link from 'next/link'
+import { NotificationBadge } from '@/modules/notifications/components/notification-badge'
 
 export function NotificationButton() {
   return (
     <Popover>
       <Popover.Trigger>
-        <Badge.Anchor>
-          <Button variant="tertiary" isIconOnly>
-            <Icon data={Bell} size={10} />
-          </Button>
-          <Badge color="danger" size="sm">
-            5
-          </Badge>
-        </Badge.Anchor>
+        <NotificationBadge />
       </Popover.Trigger>
       <Popover.Content className="w-full sm:w-100">
         <Popover.Dialog>

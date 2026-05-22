@@ -5,6 +5,7 @@ export interface NotificationService {
   getManyRead: () => Promise<Notification[]>
   getManyUnread: () => Promise<Notification[]>
   getById: (notificationId: string) => Promise<Notification>
+  getTotal: () => Promise<{ notifications: number }>
   read: (notificationId: string) => Promise<void>
   delete: (notificationId: string) => Promise<void>
 }

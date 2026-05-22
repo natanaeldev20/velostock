@@ -7,6 +7,7 @@ export const inventoryMovementSelect = {
   },
   user: { select: { name: true, lastName: true } },
   type: true,
+  priceAtMove: true,
   quantity: true,
   date: true
 } satisfies Prisma.InventoryMovementSelect

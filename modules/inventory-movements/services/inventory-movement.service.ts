@@ -53,6 +53,7 @@ export const inventoryMovementsService: InventoryMovementService = {
       const newInventoryMovement = await tx.inventoryMovement.create({
         data: {
           type: data.type,
+          priceAtMove: product.price,
           quantity: data.quantity,
           productId: product.id,
           userId

@@ -32,7 +32,7 @@ export function NavMain() {
         <Button isIconOnly variant="tertiary">
           <Icon data={BarsUnaligned} />
         </Button>
-        <Link href="/admin" className="text-xl font-medium">
+        <Link href="/admin" className="text-xl font-semibold">
           Velostock
         </Link>
       </div>

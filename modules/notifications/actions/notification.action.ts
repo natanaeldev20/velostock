@@ -21,10 +21,14 @@ export const getNotification = async (notificationId: string) =>
     return notificationService.getById(validatedId)
   })
 
+export const getTotalNotifications = async () =>
+  handleAction(() => notificationService.getTotal())
+
 export const readNotification = async (notificationId: string) =>
-  handleAction(() => {
+  handleAction(async () => {
     const validatedId = validateId(notificationId)
-    return notificationService.read(validatedId)
+    await notificationService.read(validatedId)
+    revalidatePath('/admin/notifications')
   })
 
 export const deleteNotification = async (notificationId: string) =>
