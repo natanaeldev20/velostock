@@ -6,6 +6,7 @@ import { Button, Card } from '@heroui/react'
 import { Person, ListUl, Box, Folders, Boxes3 } from '@gravity-ui/icons'
 import { DashboardButton } from '@/shared/components/dashboard/dashboard-button'
 import { DashboardButtonContainer } from '@/shared/components/dashboard/dashboard-button-container'
+import { ActivityCard } from '@/modules/activities/components/activity-card'
 
 export default async function AdminPage() {
   return (
@@ -72,22 +73,15 @@ export default async function AdminPage() {
         </div>
         <Card>
           <div className="flex flex-row items-center justify-between">
-            <h1>Actividad reciente</h1>
+            <h2 className="text-lg font-semibold">Actividades reciente</h2>
             <Button className="bg-indigo-600">Ver todas</Button>
           </div>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
-          <p>hahaha</p>
+          <ActivityCard />
+          <ActivityCard />
+          <ActivityCard />
+          <ActivityCard />
+          <ActivityCard />
+          <ActivityCard />
         </Card>
       </div>
     </Section>
