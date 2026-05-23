@@ -13,11 +13,13 @@ export function DashboardButton({
     <Link href={url}>
       <Card
         variant="secondary"
-        className={`flex flex-col items-center transition-colors ${className}`}
+        className={`grid grid-cols-1 grid-rows-2 justify-items-center transition-colors ${className}`}
       >
-        <Card.Title className="text-center text-white font-semibold">
-          {text}
-        </Card.Title>
+        <div className="line-clamp-1">
+          <Card.Title className="text-center text-white font-semibold">
+            {text}
+          </Card.Title>
+        </div>
         <Icon className="text-white" data={icon} size={25} />
       </Card>
     </Link>

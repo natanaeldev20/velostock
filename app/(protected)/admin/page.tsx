@@ -29,7 +29,7 @@ export default async function AdminPage() {
               className="bg-indigo-600 hover:bg-indigo-600"
             />
           </DashboardButtonContainer>
-          <DashboardButtonContainer title="Productos y catego">
+          <DashboardButtonContainer title="Productos y categorías">
             <DashboardButton
               url="/"
               icon={Box}
@@ -59,13 +59,13 @@ export default async function AdminPage() {
             <DashboardButton
               url="/"
               icon={Boxes3}
-              text="Lista de categorías"
+              text="Nuevo movimiento manual"
               className="bg-green-600 hover:bg-green-500"
             />
             <DashboardButton
               url="/"
               icon={ListUl}
-              text="Lista de categorías"
+              text="Lista de movimientos"
               className="bg-green-600 hover:bg-green-500"
             />
           </DashboardButtonContainer>
