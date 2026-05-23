@@ -6,7 +6,8 @@ import { Button, Card } from '@heroui/react'
 import { Person, ListUl, Box, Folders, Boxes3 } from '@gravity-ui/icons'
 import { DashboardButton } from '@/shared/components/dashboard/dashboard-button'
 import { DashboardButtonContainer } from '@/shared/components/dashboard/dashboard-button-container'
-import { ActivityCard } from '@/modules/activities/components/activity-card'
+import { RecentActivitiesContainer } from '@/modules/activities/components/recent-activities-container'
+import { RecentActivities } from '@/modules/activities/components/recent-activities'
 
 export default async function AdminPage() {
   return (
@@ -14,8 +15,8 @@ export default async function AdminPage() {
       <Suspense fallback={<StatsSkeleton />}>
         <StatSection />
       </Suspense>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="md:col-span-3 space-y-6">
+      <div className="mt-4 grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div className="lg:col-span-3 space-y-6">
           <DashboardButtonContainer title="Usuarios">
             <DashboardButton
               url="/admin/products"
@@ -71,18 +72,7 @@ export default async function AdminPage() {
             />
           </DashboardButtonContainer>
         </div>
-        <Card>
-          <div className="flex flex-row items-center justify-between">
-            <h2 className="text-lg font-semibold">Actividades reciente</h2>
-            <Button className="bg-indigo-600">Ver todas</Button>
-          </div>
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-          <ActivityCard />
-        </Card>
+        <RecentActivities />
       </div>
     </Section>
   )

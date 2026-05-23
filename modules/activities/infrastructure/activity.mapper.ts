@@ -10,6 +10,16 @@ export const activitySelect = {
   }
 } satisfies Prisma.ActivitySelect
 
+export const recentActivitySelect = {
+  id: true,
+  description: true,
+  user: { select: { imgUrl: true, name: true, username: true } }
+} satisfies Prisma.ActivitySelect
+
 export type Activity = Prisma.ActivityGetPayload<{
   select: typeof activitySelect
+}>
+
+export type RecentActivity = Prisma.ActivityGetPayload<{
+  select: typeof recentActivitySelect
 }>
