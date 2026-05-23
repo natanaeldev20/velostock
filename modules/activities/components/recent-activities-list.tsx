@@ -4,7 +4,7 @@ import { RecentActivityCard } from './recent-activity-card'
 export function RecentActivitiesList({ activities }: RecentActivityListProps) {
   if (activities.length === 0)
     return (
-      <div>
+      <div className="text-center">
         <p>No hay actividades</p>
       </div>
     )
