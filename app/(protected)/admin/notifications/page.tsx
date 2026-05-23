@@ -1,5 +1,5 @@
 import { NotificationListSkeleton } from '@/modules/notifications/components/notification-list-skeleton'
-import { SectionContainer } from '@/shared/components/section-container'
+import { Section } from '@/shared/components/section'
 import { SiteHeader } from '@/shared/components/site-header'
 import { Separator } from '@heroui/react'
 import { Suspense } from 'react'
@@ -9,7 +9,7 @@ import { UnreadNotificationContainer } from '@/modules/notifications/components/
 
 export default function NotificationsPage() {
   return (
-    <SectionContainer>
+    <Section>
       <div className="w-full shadow-2xs bg-black/5 dark:bg-white/4 rounded-lg p-4 max-w-2xl mx-auto">
         <SiteHeader title="Notificaciones" />
         <Separator className="my-4" />
@@ -37,6 +37,6 @@ export default function NotificationsPage() {
           </Tabs.Panel>
         </Tabs>
       </div>
-    </SectionContainer>
+    </Section>
   )
 }
