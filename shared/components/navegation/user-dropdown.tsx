@@ -8,7 +8,7 @@ const DEFAULT_AVATAR =
 
 export function UserDropdown({ user }: UserNavData) {
   const avatar = user.imgUrl ?? DEFAULT_AVATAR
-  const initials = `${user.name ?? ''} ${user.lastName ?? ''}`.toUpperCase()
+  const initials = `${user.name[0]} ${user.lastName[0]}`.toUpperCase()
 
   return (
     <Dropdown>

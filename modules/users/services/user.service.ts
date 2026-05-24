@@ -13,11 +13,20 @@ import type { CreateUser, UpdateUser } from '../schemas/user.schema'
 import type { UserService } from '../contracts/user.contract'
 
 export const userService: UserService = {
-  getMany(): Promise<User[]> {
+  getMany(search?: string): Promise<User[]> {
     return prisma.user.findMany({
-      where: { deletedAt: null },
+      where: search
+        ? {
+            OR: [
+              { name: { contains: search, mode: 'insensitive' } },
+              { lastName: { contains: search, mode: 'insensitive' } },
+              { username: { contains: search, mode: 'insensitive' } }
+            ],
+            deletedAt: null
+          }
+        : { deletedAt: null },
       select: userSelect,
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'desc' }
     })
   },
 

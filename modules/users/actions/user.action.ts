@@ -16,7 +16,8 @@ import {
 } from '@/shared/utils/validations'
 import { authService } from '@/modules/auth/services/auth.service'
 
-export const getUsers = async () => handleAction(() => userService.getMany())
+export const getUsers = async (search?: string) =>
+  handleAction(() => userService.getMany(search))
 export const getDeletedUsers = async () =>
   handleAction(() => userService.getManyDeleted())
 

@@ -2,6 +2,12 @@ import { Avatar, Badge, Card } from '@heroui/react'
 import type { RecentActivityProps } from '../contracts/activity.contract'
 
 export function RecentActivityCard({ activity }: RecentActivityProps) {
+  const DEFAULT_AVATAR =
+    'https://img.magnific.com/psd-gratis/ilustracion-3d-avatar-o-perfil-humano_23-2150671142.jpg'
+
+  const avatar = activity.user.imgUrl ?? DEFAULT_AVATAR
+  const name = activity.user.name[0]
+
   return (
     <Card
       variant="secondary"
@@ -10,10 +16,11 @@ export function RecentActivityCard({ activity }: RecentActivityProps) {
       <Badge.Anchor>
         <Avatar>
           <Avatar.Image
-            src="https://img.magnific.com/psd-gratis/ilustracion-3d-avatar-o-perfil-humano_23-2150671142.jpg"
-            alt="User Avatar"
+            src={avatar}
+            alt={activity.user.name}
             className="w-10 h-10 rounded-full object-cover ring-2 ring-slate-100"
           />
+          <Avatar.Fallback>{name}</Avatar.Fallback>
         </Avatar>
         <Badge color="success" placement="bottom-right" size="sm" />
       </Badge.Anchor>

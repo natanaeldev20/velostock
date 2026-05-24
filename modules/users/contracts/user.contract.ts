@@ -2,7 +2,7 @@ import type { CreateUser, UpdateUser } from '../schemas/user.schema'
 import type { User, UserNav, UserProfile } from '../infrastructure/user.mapper'
 
 export interface UserService {
-  getMany: () => Promise<User[]>
+  getMany: (search?: string) => Promise<User[]>
   getManyDeleted: () => Promise<User[]>
   getManyActives: () => Promise<User[]>
   getById: (userId: string) => Promise<User>
