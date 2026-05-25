@@ -2,11 +2,9 @@ import { StatSection } from '@/modules/analytics/components/stat-section'
 import { StatsSkeleton } from '@/modules/analytics/components/stat-list-skeleton'
 import { Suspense } from 'react'
 import { Section } from '@/shared/components/section'
-import { Button, Card } from '@heroui/react'
 import { Person, ListUl, Box, Folders, Boxes3 } from '@gravity-ui/icons'
 import { DashboardButton } from '@/shared/components/dashboard/dashboard-button'
 import { DashboardButtonContainer } from '@/shared/components/dashboard/dashboard-button-container'
-import { RecentActivitiesContainer } from '@/modules/activities/components/recent-activities-container'
 import { RecentActivities } from '@/modules/activities/components/recent-activities'
 
 export default async function AdminPage() {
@@ -28,7 +26,7 @@ export default async function AdminPage() {
               url="/admin/products"
               icon={ListUl}
               text="Lista de usuarios"
-              className="bg-indigo-600 hover:bg-indigo-600"
+              className="bg-indigo-600 hover:bg-indigo-500"
             />
           </DashboardButtonContainer>
           <DashboardButtonContainer title="Productos y categorías">

@@ -21,13 +21,13 @@ export function UserTable({ users }: UsersListProps) {
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  const handleSearch = useDebouncedCallback((term: string) => {
+  const handleSearch = useDebouncedCallback((value: string, field: string) => {
     const params = new URLSearchParams(searchParams)
 
-    if (term) {
-      params.set('search', term)
+    if (value) {
+      params.set(field, value)
     } else {
-      params.delete('search')
+      params.delete(field)
     }
 
     // Esto actualiza la URL (ej: /admin/users?search=carlos) sin recargar la página entera
@@ -50,14 +50,27 @@ export function UserTable({ users }: UsersListProps) {
   return (
     <div className="max-w-5xl mx-auto space-y-4">
       <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-        <div className="relative w-full md:max-w-md">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400"></span>
+        <div className="w-full flex flex-col gap-4 md:flex-row">
           <input
             type="text"
-            placeholder="Buscar por nombre, apellido o nombre de usuario..."
-            defaultValue={searchParams.get('search')?.toString()}
-            onChange={(e) => handleSearch(e.target.value)} // 💡 Escucha el cambio
-            className="w-full pl-10 pr-4 py-2 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+            placeholder="Buscar por nombre"
+            defaultValue={searchParams.get('name')?.toString()}
+            onChange={(e) => handleSearch(e.target.value, 'name')} // 💡 Escucha el cambio
+            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+          />
+          <input
+            type="text"
+            placeholder="Buscar por apellido"
+            defaultValue={searchParams.get('lastName')?.toString()}
+            onChange={(e) => handleSearch(e.target.value, 'lastName')} // 💡 Escucha el cambio
+            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+          />
+          <input
+            type="text"
+            placeholder="Buscar por nombre de usuarios"
+            defaultValue={searchParams.get('username')?.toString()}
+            onChange={(e) => handleSearch(e.target.value, 'username')} // 💡 Escucha el cambio
+            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
           />
         </div>
       </div>
