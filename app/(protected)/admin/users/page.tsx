@@ -23,7 +23,10 @@ export default async function UserContainer({ searchParams }: PageProps) {
   // Le pasamos los usuarios ya filtrados por la base de datos a tu vista
   return (
     <Section>
-      <SiteHeader title="Gestión de usuarios" />
+      <SiteHeader
+        title="Gestión de usuarios"
+        description="Registro, control y administración de las cuentas de acceso para el personal autorizado en el sistema"
+      />
       <Container>
         <UserTable users={data} />
       </Container>

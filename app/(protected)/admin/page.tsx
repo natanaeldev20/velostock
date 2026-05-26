@@ -8,11 +8,18 @@ import { DashboardButtonContainer } from '@/shared/components/dashboard/dashboar
 import { RecentActivities } from '@/modules/activities/components/recent-activities'
 import { SiteHeader } from '@/shared/components/site-header'
 import { Container } from '@/shared/components/container'
+import { auth } from '@/auth'
 
 export default async function AdminPage() {
+  const session = await auth()
+  const date = new Date()
+
   return (
     <Section>
-      <SiteHeader title="Panel de control global" />
+      <SiteHeader
+        title={`Hola, ${session?.user?.name} 👋`}
+        description={`Aquí esta el resumen de tu inventario hoy (${date.toLocaleString()})`}
+      />
       <Container>
         <Suspense fallback={<StatsSkeleton />}>
           <StatContainer />

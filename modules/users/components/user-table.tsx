@@ -49,36 +49,36 @@ export function UserTable({ users }: UsersListProps) {
 
   return (
     <div className="max-w-5xl mx-auto space-y-4">
-      <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+      <div className="p-4 rounded-xl shadow-sm">
         <div className="w-full flex flex-col gap-4 md:flex-row">
           <input
             type="text"
             placeholder="Buscar por nombre"
             defaultValue={searchParams.get('name')?.toString()}
             onChange={(e) => handleSearch(e.target.value, 'name')} // 💡 Escucha el cambio
-            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:border-slate-200/20"
           />
           <input
             type="text"
             placeholder="Buscar por apellido"
             defaultValue={searchParams.get('lastName')?.toString()}
             onChange={(e) => handleSearch(e.target.value, 'lastName')} // 💡 Escucha el cambio
-            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:border-slate-200/20"
           />
           <input
             type="text"
             placeholder="Buscar por nombre de usuarios"
             defaultValue={searchParams.get('username')?.toString()}
             onChange={(e) => handleSearch(e.target.value, 'username')} // 💡 Escucha el cambio
-            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:border-slate-200/20"
           />
         </div>
       </div>
-      <div className="w-full bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+      <div className="w-full rounded-xl border border-slate-100 shadow-sm overflow-hidden dark:border-slate-100/20">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100">
+              <tr className="border-b">
                 <th className="p-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
                   Usuario
                 </th>
@@ -93,7 +93,7 @@ export function UserTable({ users }: UsersListProps) {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y">
               {users.map((user) => (
                 <UserRow key={user.id} user={user} />
               ))}
