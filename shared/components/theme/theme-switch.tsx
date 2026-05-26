@@ -30,6 +30,7 @@ export function ThemeSwitch() {
       {({ isSelected }) => (
         <>
           <Switch.Control
+            className="bg-indigo-500"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
             <Switch.Thumb>

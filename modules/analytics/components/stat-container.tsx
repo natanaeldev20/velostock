@@ -3,7 +3,7 @@ import type { StatCard } from '../contracts/analytic.contract'
 import { StatList } from './stat-list'
 import { Persons, Folders, Box, Boxes3 } from '@gravity-ui/icons'
 
-export async function StatSection() {
+export async function StatContainer() {
   const { data } = await getSummaryStats()
 
   if (!data) return null

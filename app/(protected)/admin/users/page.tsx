@@ -1,6 +1,9 @@
 // src/app/admin/users/page.tsx
 import { UserTable } from '@/modules/users/components/user-table'
 import { getUsers } from '@/modules/users/actions'
+import { Section } from '@/shared/components/section'
+import { SiteHeader } from '@/shared/components/site-header'
+import { Container } from '@/shared/components/container'
 
 interface PageProps {
   searchParams: Promise<{ name?: string; lastName?: string; username?: string }>
@@ -18,5 +21,12 @@ export default async function UserContainer({ searchParams }: PageProps) {
   }
 
   // Le pasamos los usuarios ya filtrados por la base de datos a tu vista
-  return <UserTable users={data} />
+  return (
+    <Section>
+      <SiteHeader title="Gestión de usuarios" />
+      <Container>
+        <UserTable users={data} />
+      </Container>
+    </Section>
+  )
 }
