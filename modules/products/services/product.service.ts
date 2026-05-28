@@ -40,6 +40,10 @@ export const productService: ProductService = {
     return product
   },
 
+  countAll(): Promise<number> {
+    return prisma.product.count()
+  },
+
   async create(userId: string, data: CreateProduct): Promise<Product> {
     return prisma.$transaction(async (tx): Promise<Product> => {
       const existingProductName = await tx.product.findFirst({

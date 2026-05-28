@@ -76,6 +76,10 @@ export const userService: UserService = {
     return user
   },
 
+  countAll(): Promise<number> {
+    return prisma.user.count()
+  },
+
   async getProfile(userId: string): Promise<UserProfile> {
     const userLogged = await prisma.user.findUnique({
       where: { id: userId },

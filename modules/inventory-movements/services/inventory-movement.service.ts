@@ -7,7 +7,7 @@ import {
 } from '../infrastructure/inventory-movement.mapper'
 import { InventoryMovementService } from '../contracts/inventory-movement.contract'
 
-export const inventoryMovementsService: InventoryMovementService = {
+export const inventoryMovementService: InventoryMovementService = {
   getMany(): Promise<InventoryMovement[]> {
     return prisma.inventoryMovement.findMany({
       select: inventoryMovementSelect,
@@ -26,6 +26,10 @@ export const inventoryMovementsService: InventoryMovementService = {
     }
 
     return inventoryMovement
+  },
+
+  countAll(): Promise<number> {
+    return prisma.inventoryMovement.count()
   },
 
   create(

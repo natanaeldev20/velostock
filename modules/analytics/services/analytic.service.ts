@@ -1,14 +1,17 @@
-import prisma from '@/shared/infrastructure/database/db'
 import type { AnalyticService, Analytic } from '../contracts/analytic.contract'
+import { userService } from '@/modules/users/services/user.service'
+import { categoryService } from '@/modules/categories/services/category.service'
+import { productService } from '@/modules/products/services/product.service'
+import { inventoryMovementService } from '@/modules/inventory-movements/services/inventory-movement.service'
 
 export const analyticService: AnalyticService = {
   async getMany(): Promise<Analytic> {
     const [users, categories, products, inventoryMovements] = await Promise.all(
       [
-        prisma.user.count(),
-        prisma.category.count(),
-        prisma.product.count(),
-        prisma.inventoryMovement.count()
+        userService.countAll(),
+        categoryService.countAll(),
+        productService.countAll(),
+        inventoryMovementService.countAll()
       ]
     )
 

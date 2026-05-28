@@ -45,6 +45,9 @@ export const getUserNav = async () =>
     return userService.getNav(userId)
   })
 
+export const countAllUsers = async () =>
+  handleAction(() => userService.countAll())
+
 export const createUserRoot = async (rawData: CreateUser) =>
   handleAction(
     () => {

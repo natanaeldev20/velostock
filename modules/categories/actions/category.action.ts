@@ -15,21 +15,25 @@ import {
 } from '@/shared/utils/validations'
 import { authService } from '@/modules/auth/services/auth.service'
 
-export const getCategories = () => handleAction(() => categoryService.getMany())
+export const getCategories = async () =>
+  handleAction(() => categoryService.getMany())
 
-export const getDeletedCategories = () =>
+export const getDeletedCategories = async () =>
   handleAction(() => categoryService.getManyDeleted())
 
-export const getActiveCategories = () =>
+export const getActiveCategories = async () =>
   handleAction(() => categoryService.getManyActives())
 
-export const getCategory = (categoryId: string) =>
+export const getCategory = async (categoryId: string) =>
   handleAction(() => {
     const validatedId = validateId(categoryId)
     return categoryService.getById(validatedId)
   })
 
-export const createCategory = (rawData: CreateCategory) =>
+export const countAllCategories = async () =>
+  handleAction(() => categoryService.countAll())
+
+export const createCategory = async (rawData: CreateCategory) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -42,7 +46,10 @@ export const createCategory = (rawData: CreateCategory) =>
     }
   )
 
-export const updateCategory = (categoryId: string, rawData: UpdateCategory) =>
+export const updateCategory = async (
+  categoryId: string,
+  rawData: UpdateCategory
+) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -57,7 +64,7 @@ export const updateCategory = (categoryId: string, rawData: UpdateCategory) =>
     }
   )
 
-export const softDeleteCategory = (categoryId: string) =>
+export const softDeleteCategory = async (categoryId: string) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -70,7 +77,7 @@ export const softDeleteCategory = (categoryId: string) =>
     }
   )
 
-export const hardDeleteCategory = (categoryId: string) =>
+export const hardDeleteCategory = async (categoryId: string) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -83,7 +90,7 @@ export const hardDeleteCategory = (categoryId: string) =>
     }
   )
 
-export const softDeleteManyCategories = () =>
+export const softDeleteManyCategories = async () =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -98,7 +105,7 @@ export const softDeleteManyCategories = () =>
     }
   )
 
-export const restoreCategory = (categoryId: string) =>
+export const restoreCategory = async (categoryId: string) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -111,7 +118,10 @@ export const restoreCategory = (categoryId: string) =>
     }
   )
 
-export const toggleCategoryStatus = (categoryId: string, isActive: boolean) =>
+export const toggleCategoryStatus = async (
+  categoryId: string,
+  isActive: boolean
+) =>
   handleAction(async () => {
     const { userId } = await authService.getId()
 
@@ -121,7 +131,7 @@ export const toggleCategoryStatus = (categoryId: string, isActive: boolean) =>
     return categoryService.toggleStatus(userId, validatedId, validatedStatus)
   })
 
-export const toggleCategorySelection = (
+export const toggleCategorySelection = async (
   categoryId: string,
   isSelect: boolean
 ) =>

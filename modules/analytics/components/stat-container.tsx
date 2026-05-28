@@ -28,7 +28,7 @@ export async function StatContainer() {
       route: '/admin/products'
     },
     {
-      title: 'Inventario',
+      title: 'Movimientos',
       value: data.inventoryMovements,
       icon: Boxes3,
       route: 'admin/inventory'

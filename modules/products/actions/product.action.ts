@@ -15,21 +15,25 @@ import {
 import { handleAction } from '@/shared/infrastructure/handlers/handle-action'
 import { authService } from '@/modules/auth/services/auth.service'
 
-export const getProducts = () => handleAction(() => productService.getMany())
+export const getProducts = async () =>
+  handleAction(() => productService.getMany())
 
-export const getDeletedProducts = () =>
+export const getDeletedProducts = async () =>
   handleAction(() => productService.getManyDeleted())
 
-export const getActiveProducts = () =>
+export const getActiveProducts = async () =>
   handleAction(() => productService.getManyActives())
 
-export const getProduct = (productId: string) =>
+export const getProduct = async (productId: string) =>
   handleAction(() => {
     const validatedId = validateId(productId)
     return productService.getById(validatedId)
   })
 
-export const createProduct = (rawData: CreateProduct) =>
+export const countAllProducts = async () =>
+  handleAction(() => productService.countAll())
+
+export const createProduct = async (rawData: CreateProduct) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -40,7 +44,10 @@ export const createProduct = (rawData: CreateProduct) =>
     { successMessage: ({ name }) => `Producto ${name} creado con exito` }
   )
 
-export const updateProduct = (productId: string, rawData: UpdateProduct) =>
+export const updateProduct = async (
+  productId: string,
+  rawData: UpdateProduct
+) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -55,7 +62,7 @@ export const updateProduct = (productId: string, rawData: UpdateProduct) =>
     }
   )
 
-export const softDeleteProduct = (productId: string) =>
+export const softDeleteProduct = async (productId: string) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -68,7 +75,7 @@ export const softDeleteProduct = (productId: string) =>
     }
   )
 
-export const hardDeleteProduct = (productId: string) =>
+export const hardDeleteProduct = async (productId: string) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -82,7 +89,7 @@ export const hardDeleteProduct = (productId: string) =>
     }
   )
 
-export const softDeleteManyProducts = () =>
+export const softDeleteManyProducts = async () =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -97,7 +104,7 @@ export const softDeleteManyProducts = () =>
     }
   )
 
-export const restoreProduct = (productId: string) =>
+export const restoreProduct = async (productId: string) =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
@@ -110,7 +117,10 @@ export const restoreProduct = (productId: string) =>
     }
   )
 
-export const toggleProductStatus = (productId: string, isActive: boolean) =>
+export const toggleProductStatus = async (
+  productId: string,
+  isActive: boolean
+) =>
   handleAction(async () => {
     const { userId } = await authService.getId()
 
@@ -120,7 +130,10 @@ export const toggleProductStatus = (productId: string, isActive: boolean) =>
     return productService.toggleStatus(userId, validatedId, validatedStatus)
   })
 
-export const toggleProductSelection = (productId: string, isSelect: boolean) =>
+export const toggleProductSelection = async (
+  productId: string,
+  isSelect: boolean
+) =>
   handleAction(() => {
     const validatedId = validateId(productId)
     const validatedStatus = validateStatus(isSelect)

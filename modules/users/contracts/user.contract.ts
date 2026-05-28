@@ -13,6 +13,7 @@ export interface UserService {
   getById: (userId: string) => Promise<User>
   getProfile: (userId: string) => Promise<UserProfile>
   getNav: (userId: string) => Promise<UserNav>
+  countAll: () => Promise<number>
   createRoot: (data: CreateUser) => Promise<User>
   create: (actorId: string, data: CreateUser) => Promise<User>
   update: (actorId: string, userId: string, data: UpdateUser) => Promise<User>

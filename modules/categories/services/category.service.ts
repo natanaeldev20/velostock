@@ -43,6 +43,10 @@ export const categoryService: CategoryServices = {
     return category
   },
 
+  countAll(): Promise<number> {
+    return prisma.category.count()
+  },
+
   async create(userId: string, data: CreateCategory): Promise<Category> {
     return prisma.$transaction(async (tx): Promise<Category> => {
       const existingCategoryName = await tx.category.findFirst({
