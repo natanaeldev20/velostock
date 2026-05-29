@@ -1,9 +1,9 @@
 import { getSummaryStats } from '../actions/analytic.action'
 import type { StatCard } from '../contracts/analytic.contract'
-import { StatList } from './stat-list'
+import { StatsList } from './stats-list'
 import { Persons, Folders, Box, Boxes3 } from '@gravity-ui/icons'
 
-export async function StatContainer() {
+export async function StatsContainer() {
   const { data } = await getSummaryStats()
 
   if (!data) return null
@@ -35,5 +35,5 @@ export async function StatContainer() {
     }
   ]
 
-  return <StatList stats={statsConfig} />
+  return <StatsList stats={statsConfig} />
 }

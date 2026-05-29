@@ -18,7 +18,7 @@ export interface InventoryOverview {
 export interface InventorySummaryCard {
   title: string
   description: string
-  value: number
+  value: string
   icon: IconData
 }
 

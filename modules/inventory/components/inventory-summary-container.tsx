@@ -1,7 +1,13 @@
 import { InventorySummaryList } from './inventory-summary-list'
 import { getInventoryOverview } from '../actions/inventory.action'
 import { InventorySummaryCard } from '../contracts/inventory.contract'
-import { Box, TagDollar } from '@gravity-ui/icons'
+import {
+  Box,
+  TagDollar,
+  ChartLineArrowUp,
+  TriangleExclamation
+} from '@gravity-ui/icons'
+import { formatNumber, formatPeruCurrency } from '@/shared/utils/number-utils'
 
 export async function InventorySummaryContainer() {
   const { data, ok } = await getInventoryOverview()
@@ -12,26 +18,26 @@ export async function InventorySummaryContainer() {
     {
       title: 'VALOR DEL INVENTARIO',
       description: 'Costo total de existencias',
-      value: data.totalValue,
-      icon: TagDollar
+      value: formatPeruCurrency(data.totalValue),
+      icon: ChartLineArrowUp
     },
     {
       title: 'STOCK TOTAL GLOBAL',
       description: 'Stock total del inventario',
-      value: data.totalStock,
+      value: `${formatNumber(data.totalStock)} Unidades`,
       icon: Box
     },
     {
       title: 'PRODUCTOS ACTIVOS',
       description: 'Cantidad total de productos activos',
-      value: data.totalActiveProducts,
-      icon: Box
+      value: `${formatNumber(data.totalActiveProducts)} productos`,
+      icon: TagDollar
     },
     {
       title: 'PRODUCTOS CON BAJO STOCK',
       description: 'Cantidad total de productos con bajo stock',
-      value: data.totalProductsLowStock,
-      icon: Box
+      value: `${formatNumber(data.totalProductsLowStock)} productos`,
+      icon: TriangleExclamation
     }
   ]
 

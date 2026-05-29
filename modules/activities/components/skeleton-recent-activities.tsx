@@ -1,6 +1,6 @@
 import { Card, Skeleton } from '@heroui/react'
 
-export function SkeletonListRecentActivities() {
+export function SkeletonRecentActivities() {
   return (
     <div className="flex flex-col gap-3">
       {Array.from({ length: 5 }).map((_, index) => (
