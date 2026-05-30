@@ -4,6 +4,7 @@ import { Welcome } from '@/modules/auth/components/welcome'
 import { InventorySummary } from '@/modules/inventory/components/inventory-summary'
 import { Stats } from '@/modules/analytics/components/stats'
 import { RecentActivities } from '@/modules/activities/components/recent-activities'
+import { Movements } from '@/modules/inventory-movements/components/movements'
 
 export default async function AdminPage() {
   return (
@@ -12,8 +13,9 @@ export default async function AdminPage() {
       <Container>
         <InventorySummary />
         <Stats />
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2">
+        <div className="w-full grid gap-4 grid-cols-1 md:grid-cols-2">
           <RecentActivities />
+          <Movements />
         </div>
       </Container>
     </Section>

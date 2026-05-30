@@ -3,6 +3,7 @@ import type { InventoryMovement } from '../infrastructure/inventory-movement.map
 
 export interface InventoryMovementService {
   getMany: () => Promise<InventoryMovement[]>
+  getRecents: () => Promise<InventoryMovement[]>
   getById: (inventoryMovementId: string) => Promise<InventoryMovement>
   countAll: () => Promise<number>
   create: (

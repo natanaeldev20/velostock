@@ -5,7 +5,9 @@ export const inventoryMovementSelect = {
   product: {
     select: { id: true, name: true, category: { select: { name: true } } }
   },
-  user: { select: { name: true, lastName: true } },
+  user: {
+    select: { name: true, lastName: true, imgUrl: true, username: true }
+  },
   type: true,
   priceAtMove: true,
   quantity: true,

@@ -1,10 +1,14 @@
+import { ErrorMessage } from '@heroui/react'
 import { getRecentActivities } from '../actions'
 import { RecentActivitiesList } from './recent-activities-list'
 
 export async function RecentActivitiesContainer() {
-  const { ok, data } = await getRecentActivities()
+  const res = await getRecentActivities()
 
-  if (!ok || !data) return null
+  if (!res.ok)
+    return (
+      <ErrorMessage>Error al cargar las actividades recientes</ErrorMessage>
+    )
 
-  return <RecentActivitiesList activities={data} />
+  return <RecentActivitiesList activities={res.data ?? []} />
 }

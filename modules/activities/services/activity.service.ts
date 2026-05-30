@@ -29,7 +29,7 @@ export const activityService: ActivityService = {
     return activity
   },
 
-  getRecent(): Promise<RecentActivity[]> {
+  getRecents(): Promise<RecentActivity[]> {
     return prisma.activity.findMany({
       select: recentActivitySelect,
       take: 5,

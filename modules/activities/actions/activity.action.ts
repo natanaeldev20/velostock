@@ -8,7 +8,7 @@ export const getActivities = async () =>
   handleAction(() => activityService.getMany())
 
 export const getRecentActivities = async () =>
-  handleAction(() => activityService.getRecent())
+  handleAction(() => activityService.getRecents())
 
 export const getActivity = async (activityId: string) =>
   handleAction(() => {

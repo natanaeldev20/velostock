@@ -15,6 +15,14 @@ export const inventoryMovementService: InventoryMovementService = {
     })
   },
 
+  getRecents(): Promise<InventoryMovement[]> {
+    return prisma.inventoryMovement.findMany({
+      select: inventoryMovementSelect,
+      take: 5,
+      orderBy: { createdAt: 'desc' }
+    })
+  },
+
   async getById(inventoryMovementId: string): Promise<InventoryMovement> {
     const inventoryMovement = await prisma.inventoryMovement.findUnique({
       where: { id: inventoryMovementId },

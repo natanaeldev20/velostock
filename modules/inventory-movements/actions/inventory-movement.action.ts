@@ -12,6 +12,9 @@ import { authService } from '@/modules/auth/services/auth.service'
 export const getInventoryMovements = async () =>
   handleAction(() => inventoryMovementService.getMany())
 
+export const getRecentInventoryMovements = async () =>
+  handleAction(() => inventoryMovementService.getRecents())
+
 export const getInventoryMovement = async (inventoryMovementId: string) =>
   handleAction(() => {
     const validatedId = validateId(inventoryMovementId)

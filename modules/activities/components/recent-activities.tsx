@@ -8,11 +8,11 @@ export function RecentActivities() {
   return (
     <Card>
       <div className="flex flex-row items-center justify-between">
-        <h2 className="text-md font-semibold lg:text-start md:text-xl">
-          Actividades recientes
-        </h2>
+        <h2 className="text-xl font-semibold">Actividades recientes</h2>
         <Link href={`/admin/activities`}>
-          <Button className="bg-indigo-600">Ver todas</Button>
+          <Button className="bg-indigo-600 transition-all hover:bg-indigo-500">
+            Ver todas
+          </Button>
         </Link>
       </div>
       <Suspense fallback={<SkeletonRecentActivities />}>
