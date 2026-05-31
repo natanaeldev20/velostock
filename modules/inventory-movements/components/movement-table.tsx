@@ -1,18 +1,15 @@
 import { Table } from '@heroui/react'
 import { MovementRow } from './movement-row'
-import { InventoryMovement } from '../infrastructure/inventory-movement.mapper'
+import { MovementTableProps } from '../contracts/inventory-movement.contract'
 
-interface MovementTableProps {
-  movement: InventoryMovement[]
-}
-
-export function MovementTable({ movement }: MovementTableProps) {
+export function MovementTable({ movements }: MovementTableProps) {
   return (
     <Table>
       <Table.ScrollContainer>
         <Table.Content>
           <Table.Header>
-            <Table.Column isRowHeader>Fecha</Table.Column>
+            <Table.Column isRowHeader>Hora</Table.Column>
+            <Table.Column>Fecha</Table.Column>
             <Table.Column>Tipo ENTRADA/SALIDA</Table.Column>
             <Table.Column>Producto</Table.Column>
             <Table.Column>Cantidad</Table.Column>
@@ -20,17 +17,8 @@ export function MovementTable({ movement }: MovementTableProps) {
             <Table.Column>Usuario</Table.Column>
           </Table.Header>
           <Table.Body>
-            {movement.map((item) => (
-              <MovementRow
-                id={item.id}
-                key={item.id}
-                date={item.date}
-                type={item.type}
-                product={item.product}
-                quantity={item.quantity}
-                priceAtMove={item.priceAtMove}
-                user={item.user}
-              />
+            {movements.map((item) => (
+              <MovementRow key={item.id} movement={item} />
             ))}
           </Table.Body>
         </Table.Content>

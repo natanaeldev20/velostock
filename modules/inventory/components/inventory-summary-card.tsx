@@ -18,7 +18,7 @@ export function InventorySummaryCard(item: InventorySummaryCardProps) {
       </div>
       <div className="flex-1 flex justify-end">
         <div className="max-w-max max-h-max bg-indigo-50 text-indigo-600 p-2 rounded-xl dark:bg-indigo-950/50 dark:text-indigo-400">
-          <Icon data={item.icon} />
+          <Icon data={item.icon} className="size-6" />
         </div>
       </div>
     </Card>

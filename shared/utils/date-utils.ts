@@ -30,3 +30,13 @@ export function formatDateTime(value: Date): string {
     hour12: true
   })
 }
+
+export function formatHour12(value: Date): string {
+  if (!value) return 'No hay fecha disponible'
+
+  return value.toLocaleTimeString('es-PE', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  })
+}

@@ -1,5 +1,5 @@
 import { EmptyState } from '@/shared/components/empty-state'
-import type { RecentActivityList as RecentActivityListProps } from '../contracts/activity.contract'
+import type { RecentActivityListProps } from '../contracts/activity.contract'
 import { RecentActivityCard } from './recent-activity-card'
 
 export function RecentActivitiesList({ activities }: RecentActivityListProps) {
@@ -12,7 +12,7 @@ export function RecentActivitiesList({ activities }: RecentActivityListProps) {
     )
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full grid gap-4 grid-cols-1 lg:grid-cols-2">
       {activities.map((activity) => (
         <RecentActivityCard key={activity.id} activity={activity} />
       ))}

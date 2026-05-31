@@ -396,7 +396,7 @@ export const userService: UserService = {
   toggleSelection(userId: string, isSelect: boolean): Promise<User> {
     return prisma.user.update({
       where: { id: userId },
-      data: { isSelect },
+      data: { isSelect: !isSelect },
       select: userSelect
     })
   }

@@ -6,7 +6,8 @@ export const userSelect = {
   lastName: true,
   imgUrl: true,
   username: true,
-  isActive: true
+  isActive: true,
+  isSelect: true
 } satisfies Prisma.UserSelect
 
 export const userProfileSelect = {

@@ -32,3 +32,15 @@ export interface UserService {
 export interface UserNavData {
   user: UserNav
 }
+
+export interface UserContainerProps {
+  filters: { name?: string; lastName?: string; username?: string }
+}
+
+export interface UserRowProps {
+  user: User
+}
+
+export interface UserTableProps {
+  users: User[]
+}

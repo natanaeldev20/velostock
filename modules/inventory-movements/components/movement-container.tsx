@@ -10,5 +10,5 @@ export async function MovementContainer() {
       <ErrorMessage>Error al cargar los movimientos recientes</ErrorMessage>
     )
 
-  return <MovementTable movement={res.data ?? []} />
+  return <MovementTable movements={res.data ?? []} />
 }

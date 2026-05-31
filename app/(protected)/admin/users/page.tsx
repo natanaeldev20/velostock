@@ -1,26 +1,16 @@
 // src/app/admin/users/page.tsx
-import { UserTable } from '@/modules/users/components/user-table'
-import { getUsers } from '@/modules/users/actions'
 import { Section } from '@/shared/components/section'
 import { SiteHeader } from '@/shared/components/site-header'
 import { Container } from '@/shared/components/container'
+import { UserContainer } from '@/modules/users/components/user-container'
 
 interface PageProps {
   searchParams: Promise<{ name?: string; lastName?: string; username?: string }>
 }
 
-export default async function UserContainer({ searchParams }: PageProps) {
-  // 💡 Next.js te da los parámetros de la URL directamente aquí
-  const { name, lastName, username } = await searchParams
+export default async function UserPage({ searchParams }: PageProps) {
+  const filters = await searchParams
 
-  // Ejecutamos la consulta en el servidor pasando el filtro
-  const { ok, data } = await getUsers({ name, lastName, username })
-
-  if (!ok || !data) {
-    return <p>Error al cargar usuarios</p>
-  }
-
-  // Le pasamos los usuarios ya filtrados por la base de datos a tu vista
   return (
     <Section>
       <SiteHeader
@@ -28,7 +18,7 @@ export default async function UserContainer({ searchParams }: PageProps) {
         description="Registro, control y administración de las cuentas de acceso para el personal autorizado en el sistema"
       />
       <Container>
-        <UserTable users={data} />
+        <UserContainer filters={filters} />
       </Container>
     </Section>
   )

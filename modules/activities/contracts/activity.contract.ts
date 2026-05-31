@@ -11,6 +11,6 @@ export interface RecentActivityProps {
   activity: RecentActivity
 }
 
-export interface RecentActivityList {
+export interface RecentActivityListProps {
   activities: RecentActivity[]
 }

@@ -1,38 +1,9 @@
-'use client'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { UserRow } from './user-row'
-import { useDebouncedCallback } from 'use-debounce'
+import { Table } from '@heroui/react'
+import { UserTableProps } from '../contracts/user.contract'
+import { SearchUsers } from './search-users'
 
-type User = {
-  id: string
-  name: string
-  lastName: string
-  imgUrl: string | null
-  username: string
-  isActive: boolean
-}
-
-interface UsersListProps {
-  users: User[]
-}
-
-export function UserTable({ users }: UsersListProps) {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const { replace } = useRouter()
-
-  const handleSearch = useDebouncedCallback((value: string, field: string) => {
-    const params = new URLSearchParams(searchParams)
-
-    if (value) {
-      params.set(field, value)
-    } else {
-      params.delete(field)
-    }
-
-    // Esto actualiza la URL (ej: /admin/users?search=carlos) sin recargar la página entera
-    replace(`${pathname}?${params.toString()}`)
-  }, 300)
+export function UserTable({ users }: UserTableProps) {
   // Manejo impecable de estados vacíos (UX excelente)
   if (users.length === 0) {
     return (
@@ -48,58 +19,26 @@ export function UserTable({ users }: UsersListProps) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-4">
-      <div className="p-4 rounded-xl shadow-sm">
-        <div className="w-full flex flex-col gap-4 md:flex-row">
-          <input
-            type="text"
-            placeholder="Buscar por nombre"
-            defaultValue={searchParams.get('name')?.toString()}
-            onChange={(e) => handleSearch(e.target.value, 'name')} // 💡 Escucha el cambio
-            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:border-slate-200/20"
-          />
-          <input
-            type="text"
-            placeholder="Buscar por apellido"
-            defaultValue={searchParams.get('lastName')?.toString()}
-            onChange={(e) => handleSearch(e.target.value, 'lastName')} // 💡 Escucha el cambio
-            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:border-slate-200/20"
-          />
-          <input
-            type="text"
-            placeholder="Buscar por nombre de usuarios"
-            defaultValue={searchParams.get('username')?.toString()}
-            onChange={(e) => handleSearch(e.target.value, 'username')} // 💡 Escucha el cambio
-            className="w-full p-4 text-sm text-slate-900 bg-transparent placeholder-slate-400 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:border-slate-200/20"
-          />
-        </div>
-      </div>
-      <div className="w-full rounded-xl border border-slate-100 shadow-sm overflow-hidden dark:border-slate-100/20">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b">
-                <th className="p-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Usuario
-                </th>
-                <th className="p-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                  Username
-                </th>
-                <th className="p-4 text-xs font-semibold uppercase tracking-wider text-slate-500 text-center">
-                  Estado
-                </th>
-                <th className="p-4 text-xs font-semibold uppercase tracking-wider text-slate-500 text-right pr-6">
-                  Acciones
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {users.map((user) => (
-                <UserRow key={user.id} user={user} />
-              ))}
-            </tbody>
-          </table>
-        </div>
+    <div className="space-y-4">
+      <SearchUsers />
+      <div className="w-full md:max-w-2xl md:mx-auto lg:max-w-3xl">
+        <Table className="h-[400px]">
+          <Table.ScrollContainer>
+            <Table.Content>
+              <Table.Header>
+                <Table.Column isRowHeader>Selección</Table.Column>
+                <Table.Column>Usuario</Table.Column>
+                <Table.Column>Estado</Table.Column>
+                <Table.Column>Acciones</Table.Column>
+              </Table.Header>
+              <Table.Body>
+                {users.map((item) => (
+                  <UserRow key={item.id} user={item} />
+                ))}
+              </Table.Body>
+            </Table.Content>
+          </Table.ScrollContainer>
+        </Table>
       </div>
     </div>
   )

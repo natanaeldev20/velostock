@@ -16,6 +16,7 @@ import {
 } from '@/shared/utils/validations'
 import { authService } from '@/modules/auth/services/auth.service'
 import { GetUserFilters } from '../contracts/user.contract'
+import { revalidatePath } from 'next/cache'
 
 export const getUsers = async (filters?: GetUserFilters) =>
   handleAction(() => userService.getMany(filters))
@@ -165,9 +166,15 @@ export const toggleUserStatus = async (userId: string, isActive: boolean) =>
   )
 
 export const toggleSelectionUser = async (userId: string, isSelect: boolean) =>
-  handleAction(() => {
+  handleAction(async () => {
     const validatedId = validateId(userId)
     const validatedStatus = validateStatus(isSelect)
 
-    return userService.toggleSelection(validatedId, validatedStatus)
+    const select = await userService.toggleSelection(
+      validatedId,
+      validatedStatus
+    )
+
+    revalidatePath('/admin/users')
+    return select
   })
