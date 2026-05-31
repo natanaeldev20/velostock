@@ -1,8 +1,25 @@
 'use client'
 
-import { Avatar, Checkbox, Chip, TableCell, TableRow } from '@heroui/react'
+import {
+  Avatar,
+  Checkbox,
+  Chip,
+  Switch,
+  TableCell,
+  TableRow
+} from '@heroui/react'
 import type { UserRowProps } from '../contracts/user.contract'
 import { toggleSelectionUser } from '../actions'
+//drop
+import { EllipsisVertical, Pencil, TrashBin } from '@gravity-ui/icons'
+import {
+  Button,
+  Description,
+  Dropdown,
+  Header,
+  Label,
+  Separator
+} from '@heroui/react'
 
 export function UserRow({ user }: UserRowProps) {
   const DEFAULT_AVATAR =
@@ -46,7 +63,59 @@ export function UserRow({ user }: UserRowProps) {
           {user.isActive ? 'Activo' : 'Inactivo'}
         </Chip>
       </TableCell>
-      <TableCell></TableCell>
+      <TableCell>
+        <Dropdown>
+          <Button isIconOnly aria-label="Menu" variant="secondary">
+            <EllipsisVertical className="outline-none" />
+          </Button>
+          <Dropdown.Popover>
+            <Dropdown.Menu onAction={(key) => console.log(`Selected: ${key}`)}>
+              <Dropdown.Section>
+                <Header>Acciones</Header>
+                <Dropdown.Item
+                  id="new-file"
+                  textValue="New file"
+                  shouldCloseOnSelect={false}
+                >
+                  <div className="flex flex-row items-center gap-3">
+                    <Switch>
+                      <Switch.Control>
+                        <Switch.Thumb />
+                      </Switch.Control>
+                    </Switch>
+                    <div className="flex flex-col">
+                      <Label>Activar usuario</Label>
+                      <Description>Activar o desactivar</Description>
+                    </div>
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <div className="flex h-8 items-start justify-center pt-px">
+                    <Pencil className="size-4 shrink-0 text-muted" />
+                  </div>
+                  <div className="flex flex-col">
+                    <Label>Editar usuario</Label>
+                    <Description>Hacer cambios</Description>
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Section>
+              <Separator />
+              <Dropdown.Section>
+                <Header>Zona de peligro</Header>
+                <Dropdown.Item variant="danger">
+                  <div className="flex h-8 items-start justify-center pt-px">
+                    <TrashBin className="size-4 shrink-0 text-danger" />
+                  </div>
+                  <div className="flex flex-col">
+                    <Label>Eliminar usuario</Label>
+                    <Description>Mover a la papelera</Description>
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Section>
+            </Dropdown.Menu>
+          </Dropdown.Popover>
+        </Dropdown>
+      </TableCell>
     </TableRow>
   )
 }
