@@ -2,25 +2,20 @@ import { UserRow } from './user-row'
 import { Table } from '@heroui/react'
 import { UserTableProps } from '../contracts/user.contract'
 import { SearchUsers } from './search-users'
+import { EmptyState } from '@/shared/components/empty-state'
 
 export function UserTable({ users }: UserTableProps) {
-  // Manejo impecable de estados vacíos (UX excelente)
   if (users.length === 0) {
     return (
-      <div className="w-full bg-white rounded-xl border border-slate-100 shadow-sm p-12 text-center">
-        <p className="text-sm font-medium text-slate-500">
-          No se encontraron usuarios activos o que coincidan con la búsqueda.
-        </p>
-        <p className="text-xs text-slate-400 mt-1">
-          Intenta ajustando los filtros o agregando un nuevo registro.
-        </p>
-      </div>
+      <EmptyState
+        title="0 usuarios"
+        description="No se encontraron usuario para mostrar"
+      />
     )
   }
 
   return (
     <div className="space-y-4">
-      <SearchUsers />
       <div className="w-full md:max-w-2xl md:mx-auto lg:max-w-3xl">
         <Table className="h-[400px]">
           <Table.ScrollContainer>

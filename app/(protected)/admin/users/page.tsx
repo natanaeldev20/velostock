@@ -4,12 +4,12 @@ import { SiteHeader } from '@/shared/components/site-header'
 import { Container } from '@/shared/components/container'
 import { UserContainer } from '@/modules/users/components/user-container'
 
-interface PageProps {
-  searchParams: Promise<{ name?: string; lastName?: string; username?: string }>
-}
-
-export default async function UserPage({ searchParams }: PageProps) {
-  const filters = await searchParams
+export default async function UserPage({
+  searchParams
+}: {
+  searchParams: Promise<{ search?: string }>
+}) {
+  const { search } = await searchParams
 
   return (
     <Section>
@@ -18,7 +18,7 @@ export default async function UserPage({ searchParams }: PageProps) {
         description="Registro, control y administración de las cuentas de acceso para el personal autorizado en el sistema"
       />
       <Container>
-        <UserContainer filters={filters} />
+        <UserContainer search={search} />
       </Container>
     </Section>
   )

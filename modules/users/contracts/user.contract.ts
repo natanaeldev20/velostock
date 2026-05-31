@@ -1,13 +1,8 @@
 import type { CreateUser, UpdateUser } from '../schemas/user.schema'
 import type { User, UserNav, UserProfile } from '../infrastructure/user.mapper'
-export interface GetUserFilters {
-  name?: string
-  lastName?: string
-  username?: string
-}
 export interface UserService {
   // getMany: (search?: string) => Promise<User[]>
-  getMany: (filters?: GetUserFilters) => Promise<User[]>
+  getMany: (search?: string) => Promise<User[]>
   getManyDeleted: () => Promise<User[]>
   getManyActives: () => Promise<User[]>
   getById: (userId: string) => Promise<User>
@@ -33,8 +28,9 @@ export interface UserNavData {
   user: UserNav
 }
 
-export interface UserContainerProps {
-  filters: { name?: string; lastName?: string; username?: string }
+//Search Params
+export interface UserSearchParams {
+  search?: string
 }
 
 export interface UserRowProps {

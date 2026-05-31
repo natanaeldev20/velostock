@@ -15,11 +15,10 @@ import {
   validateStatus
 } from '@/shared/utils/validations'
 import { authService } from '@/modules/auth/services/auth.service'
-import { GetUserFilters } from '../contracts/user.contract'
 import { revalidatePath } from 'next/cache'
 
-export const getUsers = async (filters?: GetUserFilters) =>
-  handleAction(() => userService.getMany(filters))
+export const getUsers = async (search?: string) =>
+  handleAction(() => userService.getMany(search))
 export const getDeletedUsers = async () =>
   handleAction(() => userService.getManyDeleted())
 

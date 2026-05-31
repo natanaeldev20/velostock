@@ -10,7 +10,7 @@ import {
 import bcrypt from 'bcryptjs'
 import { AppError } from '@/shared/domain/errors/app-error'
 import type { CreateUser, UpdateUser } from '../schemas/user.schema'
-import type { UserService, GetUserFilters } from '../contracts/user.contract'
+import type { UserService } from '../contracts/user.contract'
 
 export const userService: UserService = {
   // getMany(search?: string): Promise<User[]> {
@@ -30,21 +30,38 @@ export const userService: UserService = {
   //   })
   // },
 
-  getMany(filters?: GetUserFilters): Promise<User[]> {
+  // getMany(filters?: GetUserFilters): Promise<User[]> {
+  //   return prisma.user.findMany({
+  //     select: userSelect,
+  //     where: {
+  //       deletedAt: null,
+  //       ...(filters?.name && {
+  //         name: { contains: filters.name, mode: 'insensitive' }
+  //       }),
+  //       ...(filters?.lastName && {
+  //         lastName: { contains: filters.lastName, mode: 'insensitive' }
+  //       }),
+  //       ...(filters?.username && {
+  //         username: { contains: filters.username, mode: 'insensitive' }
+  //       })
+  //     },
+  //     orderBy: { createdAt: 'desc' }
+  //   })
+  // },
+
+  getMany(search?: string): Promise<User[]> {
     return prisma.user.findMany({
       select: userSelect,
-      where: {
-        deletedAt: null,
-        ...(filters?.name && {
-          name: { contains: filters.name, mode: 'insensitive' }
-        }),
-        ...(filters?.lastName && {
-          lastName: { contains: filters.lastName, mode: 'insensitive' }
-        }),
-        ...(filters?.username && {
-          username: { contains: filters.username, mode: 'insensitive' }
-        })
-      },
+      where: search
+        ? {
+            OR: [
+              { name: { contains: search, mode: 'insensitive' } },
+              { lastName: { contains: search, mode: 'insensitive' } },
+              { username: { contains: search, mode: 'insensitive' } }
+            ],
+            deletedAt: null
+          }
+        : { deletedAt: null },
       orderBy: { createdAt: 'desc' }
     })
   },

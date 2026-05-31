@@ -10,59 +10,30 @@ export function SearchUsers() {
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  const handleSearch = useDebouncedCallback((value: string, field: string) => {
+  const handleSearch = useDebouncedCallback((value: string) => {
     const params = new URLSearchParams(searchParams)
 
     if (value) {
-      params.set(field, value)
+      params.set('search', value)
     } else {
-      params.delete(field)
+      params.delete('search')
     }
 
-    // Esto actualiza la URL (ej: /admin/users?search=carlos) sin recargar la página entera
     replace(`${pathname}?${params.toString()}`)
   }, 300)
+
   return (
-    <Card
-      variant="secondary"
-      className="w-full grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-    >
+    <Card variant="secondary" className="w-full">
       <TextField>
-        <Label>Buscar por nombre:</Label>
+        <Label>Buscar por nombre, apellido o nombre de usuario:</Label>
         <InputGroup>
           <InputGroup.Prefix>
             <Magnifier className="size-4 text-muted" />
           </InputGroup.Prefix>
           <InputGroup.Input
-            placeholder="Natanael..."
-            defaultValue={searchParams.get('name')?.toString()}
-            onChange={(e) => handleSearch(e.target.value, 'name')}
-          />
-        </InputGroup>
-      </TextField>
-      <TextField>
-        <Label>Buscar por Apellido:</Label>
-        <InputGroup>
-          <InputGroup.Prefix>
-            <Magnifier className="size-4 text-muted" />
-          </InputGroup.Prefix>
-          <InputGroup.Input
-            placeholder="Vasquez..."
-            defaultValue={searchParams.get('lastName')?.toString()}
-            onChange={(e) => handleSearch(e.target.value, 'lastName')}
-          />
-        </InputGroup>
-      </TextField>
-      <TextField>
-        <Label>Buscar por nombre de usuario:</Label>
-        <InputGroup>
-          <InputGroup.Prefix>
-            <Magnifier className="size-4 text-muted" />
-          </InputGroup.Prefix>
-          <InputGroup.Input
-            placeholder="natanel2020..."
-            defaultValue={searchParams.get('username')?.toString()}
-            onChange={(e) => handleSearch(e.target.value, 'username')}
+            placeholder="Escribe..."
+            defaultValue={searchParams.get('search')?.toString()}
+            onChange={(e) => handleSearch(e.target.value)}
           />
         </InputGroup>
       </TextField>
