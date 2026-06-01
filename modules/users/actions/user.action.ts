@@ -156,7 +156,14 @@ export const toggleUserStatus = async (userId: string, isActive: boolean) =>
       const validatedId = validateId(userId)
       const validatedStatus = validateStatus(isActive)
 
-      return userService.toggleStatus(autorId, validatedId, validatedStatus)
+      const res = await userService.toggleStatus(
+        autorId,
+        validatedId,
+        validatedStatus
+      )
+
+      revalidatePath('/admin/users')
+      return res
     },
     {
       successMessage: ({ name, isActive }) =>

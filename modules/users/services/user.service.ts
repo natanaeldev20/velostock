@@ -385,7 +385,7 @@ export const userService: UserService = {
 
       const updatedUser = await tx.user.update({
         where: { id: userId },
-        data: { isActive }
+        data: { isActive: !isActive }
       })
 
       await tx.activity.create({
