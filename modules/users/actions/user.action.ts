@@ -77,7 +77,9 @@ export const updateUser = async (userId: string, rawData: UpdateUser) =>
       const validatedId = validateId(userId)
       const validatedData = validateData(updateUserSchema, rawData)
 
-      return userService.update(autorId, validatedId, validatedData)
+      const res = await userService.update(autorId, validatedId, validatedData)
+      revalidatePath('/admin/users')
+      return res
     },
     { successMessage: ({ name }) => `Usuario ${name} actualizado con exito` }
   )

@@ -4,6 +4,8 @@ import { Avatar, Checkbox, Chip, TableCell, TableRow } from '@heroui/react'
 import type { UserRowProps } from '../contracts/user.contract'
 import { toggleSelectionUser } from '../actions'
 import { UserStatusButton } from './user-status-button'
+import { DeleteUserButton } from './delete-user-button'
+import { EditUserButton } from './edit-user-button'
 
 export function UserRow({ user }: UserRowProps) {
   const DEFAULT_AVATAR =
@@ -47,8 +49,16 @@ export function UserRow({ user }: UserRowProps) {
           {user.isActive ? 'Activo' : 'Inactivo'}
         </Chip>
       </TableCell>
-      <TableCell>
+      <TableCell className="flex items-center gap-2">
         <UserStatusButton userId={user.id} isActive={user.isActive} />
+        <EditUserButton user={user} />
+        <DeleteUserButton
+          userId={user.id}
+          name={user.name}
+          lastName={user.lastName}
+          imgUrl={AVATAR}
+          fallback={NAME}
+        />
       </TableCell>
     </TableRow>
   )

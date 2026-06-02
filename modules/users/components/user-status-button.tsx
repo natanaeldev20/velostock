@@ -13,13 +13,19 @@ export function UserStatusButton({
     const res = await toggleUserStatus(userId, isActive)
     if (!res.ok) {
       toast.danger('Error al cambiar de estado')
+      return
     }
+    toast.success(
+      `Usuario ${res.data?.isActive ? 'activado' : 'desactivado'} con exitó`,
+      { indicator: <SealCheck /> }
+    )
   }
 
   return (
     <Modal>
       <Button
-        className="bg-indigo-600 transition-all hover:bg-indigo-500"
+        className="text-black dark:text-white"
+        variant="secondary"
         isIconOnly
       >
         <Power />
@@ -51,12 +57,6 @@ export function UserStatusButton({
                 </Switch>
               </Card>
             </Modal.Body>
-            <Modal.Footer>
-              <div className="w-full text-green-600 text-sm flex items-center gap-2 justify-center">
-                <span>{`Usuario ${isActive ? 'activado' : 'desactivado'} con exito`}</span>
-                <SealCheck />
-              </div>
-            </Modal.Footer>
           </Modal.Dialog>
         </Modal.Container>
       </Modal.Backdrop>
