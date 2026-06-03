@@ -6,11 +6,11 @@ import { toggleSelectionUser } from '../actions'
 import { UserStatusButton } from './user-status-button'
 import { DeleteUserButton } from './delete-user-button'
 import { EditUserButton } from './edit-user-button'
+import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
+import { UserDetailsButton } from './user-details-button'
 
 export function UserRow({ user }: UserRowProps) {
-  const DEFAULT_AVATAR =
-    'https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/purple.jpg'
-  const AVATAR = user.imgUrl ?? DEFAULT_AVATAR
+  const AVATAR = user.imgUrl
   const NAME = user.name[0] + user.lastName[0]
 
   const handleSelection = async () => {
@@ -33,7 +33,7 @@ export function UserRow({ user }: UserRowProps) {
       <TableCell>
         <div className="flex flex-row items-center gap-3">
           <Avatar size="sm">
-            <Avatar.Image src={AVATAR} />
+            <Avatar.Image src={AVATAR || DEFAULT_AVATAR} />
             <Avatar.Fallback>{NAME}</Avatar.Fallback>
           </Avatar>
           <div className="flex flex-col">
@@ -49,16 +49,19 @@ export function UserRow({ user }: UserRowProps) {
           {user.isActive ? 'Activo' : 'Inactivo'}
         </Chip>
       </TableCell>
-      <TableCell className="flex items-center gap-2">
-        <UserStatusButton userId={user.id} isActive={user.isActive} />
-        <EditUserButton user={user} />
-        <DeleteUserButton
-          userId={user.id}
-          name={user.name}
-          lastName={user.lastName}
-          imgUrl={AVATAR}
-          fallback={NAME}
-        />
+      <TableCell>
+        <div className="flex items-center gap-2">
+          <UserStatusButton userId={user.id} isActive={user.isActive} />
+          <EditUserButton user={user} />
+          <UserDetailsButton user={user} />
+          <DeleteUserButton
+            userId={user.id}
+            name={user.name}
+            lastName={user.lastName}
+            imgUrl={AVATAR || DEFAULT_AVATAR}
+            fallback={NAME}
+          />
+        </div>
       </TableCell>
     </TableRow>
   )

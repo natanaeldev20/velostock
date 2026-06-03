@@ -10,7 +10,8 @@ import {
   Boxes3,
   House,
   Folders,
-  ListCheck
+  ListCheck,
+  TrashBin
 } from '@gravity-ui/icons'
 import { Icon, IconData } from '@gravity-ui/uikit'
 
@@ -23,7 +24,7 @@ const navItems: {
   { icon: Persons, label: 'Usuarios', url: '/admin/users' },
   { icon: Folders, label: 'Categorías', url: '/admin/categories' },
   { icon: Box, label: 'Productos', url: '/admin/products' },
-  { icon: Boxes3, label: 'Inventario', url: '/admin/inventory' },
+  { icon: Boxes3, label: 'Movimientos', url: '/admin/inventory' },
   { icon: ListCheck, label: 'Actividades', url: '/admin/actividades' }
 ]
 
@@ -77,6 +78,18 @@ export function NavMain() {
                 ))}
               </nav>
             </Drawer.Body>
+            <Drawer.Footer>
+              <Link className="w-full" href="/admin/trash">
+                <Button
+                  variant="ghost"
+                  slot="close"
+                  className={`w-full flex justify-start items-center gap-3 rounded-xl px-3 py-3 text-sm text-foreground transition-colors ${'/admin/trash' === pathname ? 'bg-indigo-600 text-white' : ''}`}
+                >
+                  <Icon data={TrashBin} className="size-5" />
+                  Papelera
+                </Button>
+              </Link>
+            </Drawer.Footer>
           </Drawer.Dialog>
         </Drawer.Content>
       </Drawer.Backdrop>

@@ -1,7 +1,9 @@
-import { Pencil } from '@gravity-ui/icons'
+'use client'
+
+import { CirclePlusFill } from '@gravity-ui/icons'
 import {
   Avatar,
-  Drawer,
+  Button,
   ErrorMessage,
   Input,
   Label,
@@ -10,77 +12,77 @@ import {
   TextField,
   toast
 } from '@heroui/react'
-import { Button } from '@heroui/react'
 import { useForm, Controller } from 'react-hook-form'
-import { UserRowProps } from '../contracts/user.contract'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UpdateUser, updateUserSchema } from '../schemas/user.schema'
-import { updateUser } from '../actions'
-import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
-import { AVATARS_LIST } from '@/shared/constants/avatar'
+import { CreateUser, createUserSchema } from '../schemas/user.schema'
+import { createUser } from '../actions'
+import { AVATARS_LIST, DEFAULT_AVATAR } from '@/shared/constants/avatar'
 
-export function EditUserButton({ user }: UserRowProps) {
+export function CreateUserButton() {
   const {
-    handleSubmit,
-    reset,
-    watch,
     control,
+    handleSubmit,
+    watch,
+    reset,
     formState: { errors, isSubmitting }
-  } = useForm({
-    resolver: zodResolver(updateUserSchema),
+  } = useForm<CreateUser>({
+    resolver: zodResolver(createUserSchema),
     defaultValues: {
-      name: user.name,
-      lastName: user.lastName,
-      username: user.username,
-      imgUrl: user.imgUrl
+      name: '',
+      lastName: '',
+      username: '',
+      password: ''
     }
   })
 
   const currentImgUrl = watch('imgUrl')
 
-  const onSubmit = async (data: UpdateUser) => {
-    const res = await updateUser(user.id, data)
+  const onSubmit = async (data: CreateUser) => {
+    const res = await createUser(data)
+
     if (!res.ok) {
-      toast.danger('Error al actualizar usuario')
+      toast.danger(res.message)
       return
     }
     toast.success(res.message)
+    reset()
   }
 
   return (
-    <Drawer>
-      <Button isIconOnly variant="tertiary">
-        <Pencil />
+    <Modal>
+      <Button className="bg-indigo-600">
+        <CirclePlusFill />
+        Nuevo usuario
       </Button>
-      <Drawer.Backdrop variant="blur">
-        <Drawer.Content placement="right">
-          <Drawer.Dialog>
-            <Drawer.CloseTrigger onPress={() => reset()} />
-            <Drawer.Header>
-              <Drawer.Heading>Editar usuario</Drawer.Heading>
-            </Drawer.Header>
-            <Drawer.Body>
+      <Modal.Backdrop variant="blur">
+        <Modal.Container placement="center">
+          <Modal.Dialog>
+            <Modal.CloseTrigger onPress={() => reset()} />
+            <Modal.Header>
+              <Modal.Heading>Nuevo usuario</Modal.Heading>
+            </Modal.Header>
+            <Modal.Body>
               <form
-                id="edit-user-form"
-                className="space-y-4"
+                className="px-1 space-y-4"
+                id="create-user-form"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center py-1">
                   <img
-                    className="w-[150px] aspect-square object-cover rounded-full"
+                    className="w-[150px] aspect-square object-cover rounded-full ring-3 ring-white"
                     src={currentImgUrl || DEFAULT_AVATAR}
-                    alt={user.name}
+                    alt="Usuario nuevo"
                   />
                 </div>
                 <Controller
                   name="name"
                   control={control}
                   render={({ field }) => (
-                    <TextField isInvalid={!!errors.name}>
+                    <TextField type="text" isInvalid={!!errors.name}>
                       <Label>Nombre</Label>
                       <Input
                         variant="secondary"
-                        placeholder="Ingresa tu nombre"
+                        placeholder="Ingrese un nombre"
                         {...field}
                       />
                       {errors.name?.message && (
@@ -93,11 +95,11 @@ export function EditUserButton({ user }: UserRowProps) {
                   name="lastName"
                   control={control}
                   render={({ field }) => (
-                    <TextField isInvalid={!!errors.lastName}>
+                    <TextField type="text" isInvalid={!!errors.lastName}>
                       <Label>Apellido</Label>
                       <Input
                         variant="secondary"
-                        placeholder="Ingresa tu apellido"
+                        placeholder="Ingresa un apellido"
                         {...field}
                       />
                       {errors.lastName?.message && (
@@ -110,15 +112,32 @@ export function EditUserButton({ user }: UserRowProps) {
                   name="username"
                   control={control}
                   render={({ field }) => (
-                    <TextField isInvalid={!!errors.username}>
+                    <TextField type="text" isInvalid={!!errors.username}>
                       <Label>Nombre de usuario</Label>
                       <Input
                         variant="secondary"
-                        placeholder="Ingresa tu nombre de usuario"
+                        placeholder="Ingrese un nombre de usuario"
                         {...field}
                       />
                       {errors.username?.message && (
                         <ErrorMessage>{errors.username.message}</ErrorMessage>
+                      )}
+                    </TextField>
+                  )}
+                />
+                <Controller
+                  name="password"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField type="password" isInvalid={!!errors.username}>
+                      <Label>Contraseña</Label>
+                      <Input
+                        variant="secondary"
+                        placeholder="Ingrese una contraseña"
+                        {...field}
+                      />
+                      {errors.password && (
+                        <ErrorMessage>{errors.password.message}</ErrorMessage>
                       )}
                     </TextField>
                   )}
@@ -178,34 +197,34 @@ export function EditUserButton({ user }: UserRowProps) {
                   )}
                 />
               </form>
-            </Drawer.Body>
-            <Drawer.Footer>
-              <Button slot="close" variant="tertiary" onPress={() => reset()}>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onPress={() => reset()} variant="tertiary" slot="close">
                 Cancelar
               </Button>
               <Button
-                form="edit-user-form"
-                type="submit"
-                isPending={isSubmitting}
                 className="bg-indigo-600 transition-all hover:bg-indigo-500"
+                type="submit"
+                form="create-user-form"
+                isPending={isSubmitting}
               >
                 {({ isPending }) => (
                   <>
                     {isPending ? (
                       <span className="flex flex-row items-center gap-2">
-                        <Spinner color="current" size="sm" />
-                        Guardando cambios...
+                        <Spinner />
+                        Guardando...
                       </span>
                     ) : (
-                      'Guardar cambios'
+                      'Guardar'
                     )}
                   </>
                 )}
               </Button>
-            </Drawer.Footer>
-          </Drawer.Dialog>
-        </Drawer.Content>
-      </Drawer.Backdrop>
-    </Drawer>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
+    </Modal>
   )
 }

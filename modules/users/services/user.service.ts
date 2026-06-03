@@ -307,9 +307,12 @@ export const userService: UserService = {
   softDeleteMany(actorId: string): Promise<{ count: number }> {
     return prisma.$transaction(async (tx): Promise<{ count: number }> => {
       const users = await tx.user.findMany({
-        where: { isSelect: true },
+        where: { isSelect: true, deletedAt: null },
         select: { id: true }
       })
+
+      if (users.length === 0)
+        throw new AppError('No hay usuarios seleccionados')
 
       const existingUserLogged = users.some((user) => user.id === actorId)
 
@@ -319,7 +322,7 @@ export const userService: UserService = {
 
       const updatedUsers = await prisma.user.updateMany({
         where: { isSelect: true, id: { not: actorId } },
-        data: { deletedAt: new Date(), isActive: false }
+        data: { deletedAt: new Date(), isActive: false, isSelect: false }
       })
 
       await tx.activity.create({

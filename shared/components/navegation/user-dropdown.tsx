@@ -4,10 +4,10 @@ import { Gear, Persons } from '@gravity-ui/icons'
 import { LogoutButton } from '@/modules/auth/components/logout-button'
 
 const DEFAULT_AVATAR =
-  'https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg'
+  'https://img.freepik.com/vector-premium/icono-perfil-avatar-predeterminado-imagen-usuario-redes-sociales-icono-avatar-gris-silueta-perfil-blanco-ilustracion-vectorial_561158-3383.jpg'
 
 export function UserDropdown({ user }: UserNavData) {
-  const avatar = user.imgUrl ?? DEFAULT_AVATAR
+  const AVATAR = user.imgUrl
   const initials = `${user.name[0]} ${user.lastName[0]}`.toUpperCase()
 
   return (
@@ -17,7 +17,7 @@ export function UserDropdown({ user }: UserNavData) {
           <Avatar.Image
             className="object-cover"
             alt={`${user.name} ${user.lastName}`}
-            src={avatar}
+            src={AVATAR || DEFAULT_AVATAR}
           />
           <Avatar.Fallback delayMs={600}>{initials}</Avatar.Fallback>
         </Avatar>
@@ -30,7 +30,7 @@ export function UserDropdown({ user }: UserNavData) {
               <Avatar.Image
                 className="object-cover"
                 alt={user.name}
-                src={avatar}
+                src={AVATAR || DEFAULT_AVATAR}
               />
               <Avatar.Fallback delayMs={600}>{initials}</Avatar.Fallback>
             </Avatar>

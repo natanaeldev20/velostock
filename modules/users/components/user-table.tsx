@@ -7,6 +7,7 @@ import { EmptyState } from '@/shared/components/empty-state'
 import { UserFilters } from './user-filters'
 import { useState } from 'react'
 import type { FilterStatus } from '@/shared/domain/types/status'
+import { DeleteAllButton } from './delete-all-button'
 
 export function UserTable({ users }: UserTableProps) {
   const [filter, setFilter] = useState<FilterStatus>('all')
@@ -33,6 +34,7 @@ export function UserTable({ users }: UserTableProps) {
           <div className="text-sm font-medium flex items-center">
             <span>Total: {filteredUsers.length}</span>
           </div>
+          <DeleteAllButton />
         </div>
         <Table className="h-[400px]">
           <Table.ScrollContainer>

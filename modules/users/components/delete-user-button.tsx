@@ -18,7 +18,7 @@ export function DeleteUserButton({
   const handleDelete = async () => {
     const res = await softDeleteUser(userId)
     if (!res.ok) {
-      toast.danger('Error al eliminar usuario')
+      toast.danger(res.message)
       return
     }
     toast.success(`Usuario/a ${name} ${lastName} eliminado/a con exitó.`)

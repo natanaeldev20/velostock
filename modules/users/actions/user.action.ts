@@ -64,7 +64,9 @@ export const createUser = async (rawData: CreateUser) =>
       const { userId } = await authService.getId()
 
       const validatedData = validateData(createUserSchema, rawData)
-      return userService.create(userId, validatedData)
+      const res = await userService.create(userId, validatedData)
+      revalidatePath('/admin/users')
+      return res
     },
     { successMessage: ({ name }) => `Usuario ${name} creado con exito` }
   )
@@ -98,7 +100,10 @@ export const softDeleteUser = async (userId: string) =>
         )
       }
 
-      return userService.softDelete(autorId, validatedId)
+      const res = await userService.softDelete(autorId, validatedId)
+
+      revalidatePath('/admin/users')
+      return res
     },
     { successMessage: ({ name }) => `Usuario ${name} eliminado(a) con exito` }
   )
@@ -116,7 +121,9 @@ export const hardDeleteUser = async (userId: string) =>
         )
       }
 
-      return userService.hardDelete(autorId, validatedId)
+      const res = await userService.hardDelete(autorId, validatedId)
+      revalidatePath('/admin/users')
+      return res
     },
     {
       successMessage: ({ name }) =>
@@ -128,7 +135,9 @@ export const softDeleteManyUsers = async () =>
   handleAction(
     async () => {
       const { userId } = await authService.getId()
-      return userService.softDeleteMany(userId)
+      const res = await userService.softDeleteMany(userId)
+      revalidatePath('admin/users')
+      return res
     },
     {
       successMessage: ({ count }) =>
