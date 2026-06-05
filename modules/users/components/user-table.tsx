@@ -1,15 +1,15 @@
 'use client'
 
 import { UserRow } from './user-row'
-import { Table } from '@heroui/react'
-import { UserTableProps } from '../contracts/user.contract'
+import { Chip, Table } from '@heroui/react'
+import { UsersProps } from '../contracts/user.contract'
 import { EmptyState } from '@/shared/components/empty-state'
-import { UserFilters } from './user-filters'
 import { useState } from 'react'
 import type { FilterStatus } from '@/shared/domain/types/status'
-import { DeleteAllButton } from './delete-all-button'
+import { StatusFilter } from '@/shared/components/search/status-filter'
+import { DeleteAllUsersModal } from './delete-all-users-modal'
 
-export function UserTable({ users }: UserTableProps) {
+export function UserTable({ users }: UsersProps) {
   const [filter, setFilter] = useState<FilterStatus>('all')
 
   const filteredUsers = users.filter((user) => {
@@ -21,39 +21,37 @@ export function UserTable({ users }: UserTableProps) {
     return (
       <EmptyState
         title="0 usuarios"
-        description="No se encontraron usuario para mostrar"
+        description="No se encontraron usuarios relacionados a la busqueda"
       />
     )
   }
 
   return (
-    <div className="space-y-4">
-      <div className="w-full flex flex-col gap-4 md:max-w-2xl md:mx-auto lg:max-w-3xl">
-        <div className="w-full flex flex-row gap-4 items-center justify-end">
-          <UserFilters onFilterChange={setFilter} />
-          <div className="text-sm font-medium flex items-center">
-            <span>Total: {filteredUsers.length}</span>
-          </div>
-          <DeleteAllButton />
-        </div>
-        <Table className="h-[400px]">
-          <Table.ScrollContainer>
-            <Table.Content>
-              <Table.Header>
-                <Table.Column isRowHeader>Selección</Table.Column>
-                <Table.Column>Usuario</Table.Column>
-                <Table.Column>Estado</Table.Column>
-                <Table.Column>Acciones</Table.Column>
-              </Table.Header>
-              <Table.Body>
-                {filteredUsers.map((item) => (
-                  <UserRow key={item.id} user={item} />
-                ))}
-              </Table.Body>
-            </Table.Content>
-          </Table.ScrollContainer>
-        </Table>
+    <div className="w-full flex flex-col gap-4 md:max-w-2xl md:mx-auto lg:max-w-3xl">
+      <div className="w-full flex flex-row gap-4 items-center justify-end">
+        <StatusFilter onFilterChange={setFilter} />
+        <Chip variant="tertiary" color="default">
+          <Chip.Label>Total: {filteredUsers.length}</Chip.Label>
+        </Chip>
+        <DeleteAllUsersModal />
       </div>
+      <Table className="h-[400px]">
+        <Table.ScrollContainer>
+          <Table.Content>
+            <Table.Header>
+              <Table.Column isRowHeader>Selección</Table.Column>
+              <Table.Column>Usuario</Table.Column>
+              <Table.Column>Estado</Table.Column>
+              <Table.Column>Acciones</Table.Column>
+            </Table.Header>
+            <Table.Body>
+              {filteredUsers.map((item) => (
+                <UserRow key={item.id} user={item} />
+              ))}
+            </Table.Body>
+          </Table.Content>
+        </Table.ScrollContainer>
+      </Table>
     </div>
   )
 }

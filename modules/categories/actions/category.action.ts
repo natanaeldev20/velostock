@@ -14,9 +14,10 @@ import {
   validateStatus
 } from '@/shared/utils/validations'
 import { authService } from '@/modules/auth/services/auth.service'
+import { revalidatePath } from 'next/cache'
 
-export const getCategories = async () =>
-  handleAction(() => categoryService.getMany())
+export const getCategories = async (search?: string) =>
+  handleAction(() => categoryService.getMany(search))
 
 export const getDeletedCategories = async () =>
   handleAction(() => categoryService.getManyDeleted())
@@ -135,9 +136,14 @@ export const toggleCategorySelection = async (
   categoryId: string,
   isSelect: boolean
 ) =>
-  handleAction(() => {
+  handleAction(async () => {
     const validatedId = validateId(categoryId)
     const validatedStatus = validateStatus(isSelect)
 
-    return categoryService.toggleSelection(validatedId, validatedStatus)
+    const res = await categoryService.toggleSelection(
+      validatedId,
+      validatedStatus
+    )
+    revalidatePath('/admin/categories')
+    return res
   })

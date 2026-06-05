@@ -1,6 +1,5 @@
 import type { CreateUser, UpdateUser } from '../schemas/user.schema'
 import type { User, UserNav, UserProfile } from '../infrastructure/user.mapper'
-import type { FilterStatus } from '@/shared/domain/types/status'
 export interface UserService {
   // getMany: (search?: string) => Promise<User[]>
   getMany: (search?: string) => Promise<User[]>
@@ -34,15 +33,10 @@ export interface UserSearchParams {
   search?: string
 }
 
-//Filters
-export interface UserFiltersProps {
-  onFilterChange: (filter: FilterStatus) => void
-}
-
-export interface UserRowProps {
+export interface UserProps {
   user: User
 }
 
-export interface UserTableProps {
+export interface UsersProps {
   users: User[]
 }

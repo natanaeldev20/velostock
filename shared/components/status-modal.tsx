@@ -1,26 +1,16 @@
-import { Button, Card, Label, Modal, Switch, toast } from '@heroui/react'
-import { Power, SealCheck } from '@gravity-ui/icons'
-import { toggleUserStatus } from '../actions'
+import { Button, Card, Label, Modal, Switch } from '@heroui/react'
+import { Power } from '@gravity-ui/icons'
 
-export function UserStatusButton({
-  userId,
-  isActive
+export function StatusModal({
+  title,
+  isActive,
+  onChange
 }: {
+  title: string
   userId: string
   isActive: boolean
+  onChange: () => void
 }) {
-  const handleStatus = async () => {
-    const res = await toggleUserStatus(userId, isActive)
-    if (!res.ok) {
-      toast.danger('Error al cambiar de estado')
-      return
-    }
-    toast.success(
-      `Usuario ${res.data?.isActive ? 'activado' : 'desactivado'} con exitó`,
-      { indicator: <SealCheck /> }
-    )
-  }
-
   return (
     <Modal>
       <Button
@@ -36,14 +26,12 @@ export function UserStatusButton({
             <Modal.CloseTrigger />
             <Modal.Header>
               <div>
-                <h2 className="text-lg font-bold">
-                  Cambiar el estado del usuario
-                </h2>
+                <h2 className="text-lg font-bold">{title}</h2>
               </div>
             </Modal.Header>
             <Modal.Body>
               <Card variant="secondary" className="py-4">
-                <Switch isSelected={isActive} onChange={handleStatus}>
+                <Switch isSelected={isActive} onChange={onChange}>
                   <Switch.Control>
                     <Switch.Thumb>
                       <Switch.Icon />
@@ -51,7 +39,7 @@ export function UserStatusButton({
                   </Switch.Control>
                   <Switch.Content>
                     <Label className="text-sm">
-                      {isActive ? 'Desactivar usuario' : 'Activar usuario'}
+                      {isActive ? 'Desactivar' : 'Activar'}
                     </Label>
                   </Switch.Content>
                 </Switch>

@@ -6,11 +6,14 @@ import type { UpdateCategory, CreateCategory } from '../schemas/category.schema'
 import { AppError } from '@/shared/domain/errors/app-error'
 import type { CategoryServices } from '../contracts/category.contract'
 import prisma from '@/shared/infrastructure/database/db'
+import { text } from 'stream/consumers'
 
 export const categoryService: CategoryServices = {
-  getMany(): Promise<Category[]> {
+  getMany(search?: string): Promise<Category[]> {
     return prisma.category.findMany({
-      where: { deletedAt: null },
+      where: search
+        ? { name: { contains: search, mode: 'insensitive' }, deletedAt: null }
+        : { deletedAt: null },
       select: categorySelect,
       orderBy: { createdAt: 'asc' }
     })
@@ -214,6 +217,13 @@ export const categoryService: CategoryServices = {
 
   softDeleteMany(userId: string): Promise<{ count: number }> {
     return prisma.$transaction(async (tx): Promise<{ count: number }> => {
+      const categories = await tx.category.findMany({
+        where: { isSelect: true, deletedAt: null }
+      })
+
+      if (categories.length === 0)
+        throw new AppError('No hay categorías seleccionadas')
+
       const updatedCategories = await tx.category.updateMany({
         where: { isSelect: true },
         data: { deletedAt: new Date(), isActive: false }
@@ -317,7 +327,7 @@ export const categoryService: CategoryServices = {
   toggleSelection(categoryId: string, isSelect: boolean): Promise<Category> {
     return prisma.category.update({
       where: { id: categoryId },
-      data: { isSelect },
+      data: { isSelect: !isSelect },
       select: categorySelect
     })
   }

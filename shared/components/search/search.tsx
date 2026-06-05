@@ -5,7 +5,7 @@ import { Magnifier } from '@gravity-ui/icons'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce'
 
-export function SearchUsers() {
+export function Search({ label }: { label: string }) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -25,7 +25,7 @@ export function SearchUsers() {
   return (
     <Card variant="secondary" className="w-full">
       <TextField>
-        <Label>Buscar por nombre, apellido o nombre de usuario:</Label>
+        <Label>{label}</Label>
         <InputGroup>
           <InputGroup.Prefix>
             <Magnifier className="size-4 text-muted" />

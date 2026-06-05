@@ -18,7 +18,7 @@ import { CreateUser, createUserSchema } from '../schemas/user.schema'
 import { createUser } from '../actions'
 import { AVATARS_LIST, DEFAULT_AVATAR } from '@/shared/constants/avatar'
 
-export function CreateUserButton() {
+export function CreateUserModal() {
   const {
     control,
     handleSubmit,
@@ -154,7 +154,7 @@ export function CreateUserButton() {
                         <Modal.Backdrop variant="blur">
                           <Modal.Container placement="center">
                             <Modal.Dialog>
-                              <Modal.CloseTrigger />
+                              <Modal.CloseTrigger onPress={() => reset()} />
                               <Modal.Header>
                                 <Modal.Heading>
                                   Selecciona un avatar

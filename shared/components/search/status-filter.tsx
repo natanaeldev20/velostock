@@ -1,9 +1,11 @@
 import { Select, ListBox } from '@heroui/react'
 import type { Key } from 'react'
-import type { FilterStatus } from '@/shared/domain/types/status'
-import { UserFiltersProps } from '../contracts/user.contract'
+import type {
+  FilterStatus,
+  StatusFiltersProps
+} from '@/shared/domain/types/status'
 
-export function UserFilters({ onFilterChange }: UserFiltersProps) {
+export function StatusFilter({ onFilterChange }: StatusFiltersProps) {
   const handleSelectionChange = (key: Key | null) => {
     if (key) {
       onFilterChange(key as FilterStatus)

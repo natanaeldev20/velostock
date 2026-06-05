@@ -1,15 +1,15 @@
 'use client'
 
 import { Avatar, Checkbox, Chip, TableCell, TableRow } from '@heroui/react'
-import type { UserRowProps } from '../contracts/user.contract'
+import type { UserProps } from '../contracts/user.contract'
 import { toggleSelectionUser } from '../actions'
-import { UserStatusButton } from './user-status-button'
-import { DeleteUserButton } from './delete-user-button'
-import { EditUserButton } from './edit-user-button'
+import { UserStatusModal } from './user-status-modal'
+import { DeleteUserDrawer } from './delete-user-drawer'
+import { EditUserDrawer } from './edit-user-drawer'
 import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
-import { UserDetailsButton } from './user-details-button'
+import { UserDetailsModal } from './user-details-modal'
 
-export function UserRow({ user }: UserRowProps) {
+export function UserRow({ user }: UserProps) {
   const AVATAR = user.imgUrl
   const NAME = user.name[0] + user.lastName[0]
 
@@ -51,16 +51,10 @@ export function UserRow({ user }: UserRowProps) {
       </TableCell>
       <TableCell>
         <div className="flex items-center gap-2">
-          <UserStatusButton userId={user.id} isActive={user.isActive} />
-          <EditUserButton user={user} />
-          <UserDetailsButton user={user} />
-          <DeleteUserButton
-            userId={user.id}
-            name={user.name}
-            lastName={user.lastName}
-            imgUrl={AVATAR || DEFAULT_AVATAR}
-            fallback={NAME}
-          />
+          <UserStatusModal userId={user.id} isActive={user.isActive} />
+          <UserDetailsModal user={user} />
+          <EditUserDrawer user={user} />
+          <DeleteUserDrawer user={user} />
         </div>
       </TableCell>
     </TableRow>

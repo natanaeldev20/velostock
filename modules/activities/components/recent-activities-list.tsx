@@ -12,7 +12,7 @@ export function RecentActivitiesList({ activities }: RecentActivityListProps) {
     )
 
   return (
-    <div className="w-full grid gap-4 grid-cols-1 lg:grid-cols-2">
+    <div className="w-full grid gap-4 grid-cols-1">
       {activities.map((activity) => (
         <RecentActivityCard key={activity.id} activity={activity} />
       ))}

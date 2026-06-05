@@ -2,7 +2,7 @@ import type { CreateCategory, UpdateCategory } from '../schemas/category.schema'
 import type { Category } from '../infrastructure/category.mapper'
 
 export interface CategoryServices {
-  getMany: () => Promise<Category[]>
+  getMany: (search?: string) => Promise<Category[]>
   getManyDeleted: () => Promise<Category[]>
   getManyActives: () => Promise<Category[]>
   getById: (categoryId: string) => Promise<Category>
@@ -23,4 +23,12 @@ export interface CategoryServices {
     isActive: boolean
   ) => Promise<Category>
   toggleSelection: (categoryId: string, isSelect: boolean) => Promise<Category>
+}
+
+export interface CategoryProps {
+  category: Category
+}
+
+export interface CategoriesProps {
+  categories: Category[]
 }

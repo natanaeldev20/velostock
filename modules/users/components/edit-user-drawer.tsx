@@ -12,14 +12,14 @@ import {
 } from '@heroui/react'
 import { Button } from '@heroui/react'
 import { useForm, Controller } from 'react-hook-form'
-import { UserRowProps } from '../contracts/user.contract'
+import { UserProps } from '../contracts/user.contract'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UpdateUser, updateUserSchema } from '../schemas/user.schema'
 import { updateUser } from '../actions'
 import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
 import { AVATARS_LIST } from '@/shared/constants/avatar'
 
-export function EditUserButton({ user }: UserRowProps) {
+export function EditUserDrawer({ user }: UserProps) {
   const {
     handleSubmit,
     reset,

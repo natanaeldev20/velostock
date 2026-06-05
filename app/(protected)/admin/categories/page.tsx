@@ -1,11 +1,24 @@
-export default function CategoriesPage() {
+import { CategoryContainer } from '@/modules/categories/components/category-container'
+import { Container } from '@/shared/components/container'
+import { Section } from '@/shared/components/section'
+import { SiteHeader } from '@/shared/components/site-header'
+
+export default async function CategoriesPage({
+  searchParams
+}: {
+  searchParams: Promise<{ search?: string }>
+}) {
+  const { search } = await searchParams
+
   return (
-    <div>
-      <h1>Hello Page</h1>
-      <p className="text-2xl">Holaaaaaaa Yadira</p>
-      <p className="text-2xl font-medium">Holaaaaaaa Yadira</p>
-      <p className="text-2xl font-bold">Holaaaaaaa Yadira</p>
-      <p className="text-2xl font-extrabold">Holaaaaaaa Yadira</p>
-    </div>
+    <Section>
+      <SiteHeader
+        title="Gestión de categorías"
+        description="Registro, control y administración de categorías del sistema"
+      />
+      <Container>
+        <CategoryContainer search={search} />
+      </Container>
+    </Section>
   )
 }

@@ -3,7 +3,8 @@ import { Prisma } from '@prisma/client'
 export const categorySelect = {
   id: true,
   name: true,
-  isActive: true
+  isActive: true,
+  isSelect: true
 } satisfies Prisma.CategorySelect
 
 export type Category = Prisma.CategoryGetPayload<{
