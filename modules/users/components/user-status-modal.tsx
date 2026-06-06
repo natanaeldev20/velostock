@@ -26,7 +26,6 @@ export function UserStatusModal({
     <StatusModal
       title="Cambiar estado del usuario"
       isActive={isActive}
-      userId={userId}
       onChange={handleStatus}
     />
   )

@@ -7,7 +7,6 @@ export function StatusModal({
   onChange
 }: {
   title: string
-  userId: string
   isActive: boolean
   onChange: () => void
 }) {

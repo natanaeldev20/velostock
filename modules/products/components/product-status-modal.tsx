@@ -1,30 +1,30 @@
 import { StatusModal } from '@/shared/components/status-modal'
-import { toggleCategoryStatus } from '../actions'
+import { toggleProductStatus } from '../actions'
 import { toast } from '@heroui/react'
 import { SealCheck } from '@gravity-ui/icons'
 
-export function CategoryStatusModal({
-  categoryId,
+export function ProductStatusModal({
+  productId,
   isActive
 }: {
-  categoryId: string
+  productId: string
   isActive: boolean
 }) {
   const handleStatus = async () => {
-    const res = await toggleCategoryStatus(categoryId, isActive)
+    const res = await toggleProductStatus(productId, isActive)
     if (!res.ok) {
-      toast.danger(res.message)
+      toast.danger('Error al cambiar de estado')
       return
     }
     toast.success(
-      `Categoría ${res.data?.isActive ? 'activada' : 'desactivada'} con exitó`,
+      `Producto ${res.data?.isActive ? 'activado' : 'desactivado'} con exitó`,
       { indicator: <SealCheck /> }
     )
   }
 
   return (
     <StatusModal
-      title="Cambiar estado de la categoría"
+      title="Cambiar estado de producto"
       isActive={isActive}
       onChange={handleStatus}
     />

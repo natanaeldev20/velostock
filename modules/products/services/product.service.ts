@@ -5,28 +5,51 @@ import type { ProductService } from '../contracts/product.contract'
 import prisma from '@/shared/infrastructure/database/db'
 
 export const productService: ProductService = {
-  getMany(): Promise<Product[]> {
-    return prisma.product.findMany({
-      where: { deletedAt: null },
+  async getMany(search?: string): Promise<Product[]> {
+    const products = await prisma.product.findMany({
+      where: search
+        ? {
+            OR: [
+              { name: { contains: search, mode: 'insensitive' } },
+              { category: { name: { contains: search, mode: 'insensitive' } } }
+            ],
+            deletedAt: null
+          }
+        : { deletedAt: null },
       select: productSelect,
       orderBy: { createdAt: 'asc' }
     })
+
+    return products.map((p) => ({
+      ...p,
+      price: Number(p.price)
+    }))
   },
 
-  getManyDeleted(): Promise<Product[]> {
-    return prisma.product.findMany({
+  async getManyDeleted(): Promise<Product[]> {
+    const products = await prisma.product.findMany({
       where: { deletedAt: { not: null } },
       select: productSelect,
       orderBy: { deletedAt: 'asc' }
     })
+
+    return products.map((p) => ({
+      ...p,
+      price: Number(p.price)
+    }))
   },
 
-  getManyActives(): Promise<Product[]> {
-    return prisma.product.findMany({
+  async getManyActives(): Promise<Product[]> {
+    const products = await prisma.product.findMany({
       where: { isActive: true, deletedAt: null },
       select: productSelect,
       orderBy: { createdAt: 'asc' }
     })
+
+    return products.map((p) => ({
+      ...p,
+      price: Number(p.price)
+    }))
   },
 
   async getById(productId: string): Promise<Product> {
@@ -37,7 +60,7 @@ export const productService: ProductService = {
 
     if (!product) throw new AppError('Producto no encontrado', true)
 
-    return product
+    return { ...product, price: Number(product.price) }
   },
 
   countAll(): Promise<number> {
@@ -55,7 +78,7 @@ export const productService: ProductService = {
       }
 
       const newProduct = await tx.product.create({
-        data,
+        data: { ...data, stock: 0 },
         include: { category: true }
       })
 
@@ -77,7 +100,7 @@ export const productService: ProductService = {
 
       if (!result) throw new AppError('Producto no encontrado', true)
 
-      return result
+      return { ...result, price: Number(result.price) }
     })
   },
 
@@ -132,7 +155,7 @@ export const productService: ProductService = {
 
       if (!result) throw new AppError('Producto no encontrado', true)
 
-      return result
+      return { ...result, price: Number(result.price) }
     })
   },
 
@@ -166,7 +189,7 @@ export const productService: ProductService = {
 
       if (!result) throw new AppError('Producto no encontrado', true)
 
-      return result
+      return { ...result, price: Number(result.price) }
     })
   },
 
@@ -208,7 +231,7 @@ export const productService: ProductService = {
 
       const { _count, ...result } = product
 
-      return result
+      return { ...result, price: Number(result.price) }
     })
   },
 
@@ -269,7 +292,7 @@ export const productService: ProductService = {
 
       if (!result) throw new AppError('Producto no encontrado', true)
 
-      return result
+      return { ...result, price: Number(result.price) }
     })
   },
 
@@ -287,7 +310,7 @@ export const productService: ProductService = {
 
       const updatedProduct = await tx.product.update({
         where: { id: productId },
-        data: { isActive },
+        data: { isActive: !isActive },
         include: { category: true }
       })
 
@@ -309,15 +332,20 @@ export const productService: ProductService = {
 
       if (!result) throw new AppError('Producto no encontrado', true)
 
-      return result
+      return { ...result, price: Number(result.price) }
     })
   },
 
-  toggleSelection(productId: string, isSelect: boolean): Promise<Product> {
-    return prisma.product.update({
+  async toggleSelection(
+    productId: string,
+    isSelect: boolean
+  ): Promise<Product> {
+    const product = await prisma.product.update({
       where: { id: productId },
-      data: { isSelect },
+      data: { isSelect: !isSelect },
       select: productSelect
     })
+
+    return { ...product, price: Number(product.price) }
   }
 }

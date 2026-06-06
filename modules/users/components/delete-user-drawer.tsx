@@ -1,6 +1,6 @@
 import { toast } from '@heroui/react'
 import { softDeleteUser } from '../actions'
-import { DeleteButton } from '@/shared/components/delete-drawer'
+import { DeleteDrawer } from '@/shared/components/delete-drawer'
 import { UserProps } from '../contracts/user.contract'
 import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
 
@@ -19,7 +19,7 @@ export function DeleteUserDrawer({ user }: UserProps) {
   }
 
   return (
-    <DeleteButton
+    <DeleteDrawer
       onConfirm={handleDelete}
       title={`Estas seguro de eliminar al usuario ${FULL_NAMES}?`}
       description="El usuario se movera a la papelera"

@@ -5,11 +5,25 @@ export const productSelect = {
   name: true,
   category: { select: { name: true } },
   description: true,
-  price: true,
   stock: true,
-  isActive: true
+  price: true,
+  isActive: true,
+  isSelect: true
 } satisfies Prisma.ProductSelect
 
-export type Product = Prisma.ProductGetPayload<{
-  select: typeof productSelect
-}>
+// export type PrismaProduct = Prisma.ProductGetPayload<{
+//   select: typeof productSelect
+// }>
+
+export type Product = {
+  id: string
+  name: string
+  description: string | null
+  price: number
+  stock: number
+  isActive: boolean
+  isSelect: boolean
+  category: {
+    name: string
+  }
+}

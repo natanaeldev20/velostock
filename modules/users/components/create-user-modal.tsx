@@ -10,7 +10,8 @@ import {
   Modal,
   Spinner,
   TextField,
-  toast
+  toast,
+  useOverlayState
 } from '@heroui/react'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -19,6 +20,7 @@ import { createUser } from '../actions'
 import { AVATARS_LIST, DEFAULT_AVATAR } from '@/shared/constants/avatar'
 
 export function CreateUserModal() {
+  const state = useOverlayState({ defaultOpen: false })
   const {
     control,
     handleSubmit,
@@ -45,11 +47,12 @@ export function CreateUserModal() {
       return
     }
     toast.success(res.message)
+    state.close()
     reset()
   }
 
   return (
-    <Modal>
+    <Modal isOpen={state.isOpen} onOpenChange={state.setOpen}>
       <Button className="bg-indigo-600">
         <CirclePlusFill />
         Nuevo usuario
@@ -199,7 +202,13 @@ export function CreateUserModal() {
               </form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onPress={() => reset()} variant="tertiary" slot="close">
+              <Button
+                onPress={() => {
+                  state.close()
+                  reset()
+                }}
+                variant="tertiary"
+              >
                 Cancelar
               </Button>
               <Button
@@ -213,7 +222,7 @@ export function CreateUserModal() {
                     {isPending ? (
                       <span className="flex flex-row items-center gap-2">
                         <Spinner />
-                        Guardando...
+                        Guardando
                       </span>
                     ) : (
                       'Guardar'

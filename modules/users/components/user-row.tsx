@@ -8,6 +8,7 @@ import { DeleteUserDrawer } from './delete-user-drawer'
 import { EditUserDrawer } from './edit-user-drawer'
 import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
 import { UserDetailsModal } from './user-details-modal'
+import { SelectionCheckbox } from '@/shared/components/selection-checkbox'
 
 export function UserRow({ user }: UserProps) {
   const AVATAR = user.imgUrl
@@ -20,15 +21,10 @@ export function UserRow({ user }: UserProps) {
   return (
     <TableRow>
       <TableCell className="pr-0">
-        <Checkbox
-          variant="secondary"
+        <SelectionCheckbox
           isSelected={user.isSelect}
           onChange={handleSelection}
-        >
-          <Checkbox.Control>
-            <Checkbox.Indicator />
-          </Checkbox.Control>
-        </Checkbox>
+        />
       </TableCell>
       <TableCell>
         <div className="flex flex-row items-center gap-3">

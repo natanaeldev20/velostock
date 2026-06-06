@@ -40,7 +40,9 @@ export const createCategory = async (rawData: CreateCategory) =>
       const { userId } = await authService.getId()
 
       const validatedData = validateData(createCategorySchema, rawData)
-      return categoryService.create(userId, validatedData)
+      const res = await categoryService.create(userId, validatedData)
+      revalidatePath('/admin/categories')
+      return res
     },
     {
       successMessage: ({ name }) => `Categoría ${name} creada con éxito.`
@@ -58,7 +60,13 @@ export const updateCategory = async (
       const validatedId = validateId(categoryId)
       const validatedData = validateData(updateCategorySchema, rawData)
 
-      return categoryService.update(userId, validatedId, validatedData)
+      const res = await categoryService.update(
+        userId,
+        validatedId,
+        validatedData
+      )
+      revalidatePath('/admin/categories')
+      return res
     },
     {
       successMessage: ({ name }) => `Categoría ${name} actualizada con éxito.`
@@ -71,7 +79,9 @@ export const softDeleteCategory = async (categoryId: string) =>
       const { userId } = await authService.getId()
 
       const validatedId = validateId(categoryId)
-      return categoryService.softDelete(userId, validatedId)
+      const res = await categoryService.softDelete(userId, validatedId)
+      revalidatePath('/admin/categories')
+      return res
     },
     {
       successMessage: ({ name }) => `Categoría ${name} eliminada con éxito.`
@@ -84,7 +94,9 @@ export const hardDeleteCategory = async (categoryId: string) =>
       const { userId } = await authService.getId()
 
       const validatedId = validateId(categoryId)
-      return categoryService.hardDelete(userId, validatedId)
+      const res = await categoryService.hardDelete(userId, validatedId)
+      revalidatePath('/admin/categories')
+      return res
     },
     {
       successMessage: ({ name }) => `Categoría ${name} eliminada con éxito.`
@@ -96,7 +108,9 @@ export const softDeleteManyCategories = async () =>
     async () => {
       const { userId } = await authService.getId()
 
-      return categoryService.softDeleteMany(userId)
+      const res = await categoryService.softDeleteMany(userId)
+      revalidatePath('/admin/categories')
+      return res
     },
     {
       successMessage: ({ count }) =>
@@ -112,7 +126,9 @@ export const restoreCategory = async (categoryId: string) =>
       const { userId } = await authService.getId()
 
       const validatedId = validateId(categoryId)
-      return categoryService.restore(userId, validatedId)
+      const res = await categoryService.restore(userId, validatedId)
+      revalidatePath('/admin/categories')
+      return res
     },
     {
       successMessage: ({ name }) => `Categoria ${name} restaurada con exito,`
@@ -129,7 +145,13 @@ export const toggleCategoryStatus = async (
     const validatedId = validateId(categoryId)
     const validatedStatus = validateStatus(isActive)
 
-    return categoryService.toggleStatus(userId, validatedId, validatedStatus)
+    const res = await categoryService.toggleStatus(
+      userId,
+      validatedId,
+      validatedStatus
+    )
+    revalidatePath('/admin/categories')
+    return res
   })
 
 export const toggleCategorySelection = async (

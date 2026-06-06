@@ -1,7 +1,7 @@
 import { Avatar, Button, Drawer } from '@heroui/react'
 import { TrashBin } from '@gravity-ui/icons'
 
-export function DeleteButton({
+export function DeleteDrawer({
   onConfirm,
   title,
   description,

@@ -32,3 +32,7 @@ export interface CategoryProps {
 export interface CategoriesProps {
   categories: Category[]
 }
+
+export interface CategoriesFilterProps extends CategoriesProps {
+  onChange: (name: string) => void
+}

@@ -299,7 +299,7 @@ export const categoryService: CategoryServices = {
 
       const updatedCategory = await tx.category.update({
         where: { id: categoryId },
-        data: { isActive }
+        data: { isActive: !isActive }
       })
 
       await tx.activity.create({
