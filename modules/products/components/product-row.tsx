@@ -4,6 +4,8 @@ import { formatPeruCurrency } from '@/shared/utils/number-utils'
 import ProductSelectionCheckbox from './product-selection-checkbox'
 import { ProductStatusModal } from './product-status-modal'
 import { ProductDetailsModal } from './product-details-modal'
+import { EditProductDrawer } from './edit-product-drawer'
+import { DeleteProductDrawer } from './delete-product-drawer'
 
 export function ProductRow({ product }: ProductProps) {
   return (
@@ -31,6 +33,8 @@ export function ProductRow({ product }: ProductProps) {
             isActive={product.isActive}
           />
           <ProductDetailsModal product={product} />
+          <EditProductDrawer product={product} />
+          <DeleteProductDrawer id={product.id} name={product.name} />
         </div>
       </TableCell>
     </TableRow>

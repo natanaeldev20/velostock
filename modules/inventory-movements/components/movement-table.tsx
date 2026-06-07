@@ -1,8 +1,8 @@
 import { Table } from '@heroui/react'
 import { MovementRow } from './movement-row'
-import { MovementTableProps } from '../contracts/inventory-movement.contract'
+import type { MovementsProps } from '../contracts/inventory-movement.contract'
 
-export function MovementTable({ movements }: MovementTableProps) {
+export function MovementTable({ movements }: MovementsProps) {
   return (
     <Table>
       <Table.ScrollContainer>

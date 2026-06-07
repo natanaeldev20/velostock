@@ -1,13 +1,11 @@
 'use client'
 
-import { useState } from 'react'
 import {
   Button,
   ErrorMessage,
   Input,
   Label,
   Modal,
-  Spinner,
   TextField,
   toast,
   useOverlayState
@@ -20,6 +18,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { createCategory } from '../actions'
 import { CirclePlusFill } from '@gravity-ui/icons'
+import { SpinnerLoader } from '@/shared/components/spinner-loader'
 
 export function CreateCategoryModal() {
   const state = useOverlayState({ defaultOpen: false })
@@ -94,14 +93,7 @@ export function CreateCategoryModal() {
               >
                 {({ isPending }) => (
                   <>
-                    {isPending ? (
-                      <span className="flex flex-row items-center gap-2">
-                        <Spinner size="sm" />
-                        Guardando
-                      </span>
-                    ) : (
-                      'Guardar'
-                    )}
+                    {isPending ? <SpinnerLoader text="Guardando" /> : 'Guardar'}
                   </>
                 )}
               </Button>

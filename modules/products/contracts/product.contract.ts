@@ -33,7 +33,3 @@ export interface ProductProps {
 export interface ProductsProps {
   products: Product[]
 }
-
-export interface ProductsTableProps extends ProductsProps {
-  categories: Category[]
-}

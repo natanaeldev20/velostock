@@ -6,7 +6,6 @@ import {
   Input,
   Label,
   Modal,
-  Spinner,
   TextField,
   toast
 } from '@heroui/react'
@@ -18,6 +17,7 @@ import { UpdateUser, updateUserSchema } from '../schemas/user.schema'
 import { updateUser } from '../actions'
 import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
 import { AVATARS_LIST } from '@/shared/constants/avatar'
+import { SpinnerLoader } from '@/shared/components/spinner-loader'
 
 export function EditUserDrawer({ user }: UserProps) {
   const {
@@ -192,10 +192,7 @@ export function EditUserDrawer({ user }: UserProps) {
                 {({ isPending }) => (
                   <>
                     {isPending ? (
-                      <span className="flex flex-row items-center gap-2">
-                        <Spinner color="current" size="sm" />
-                        Guardando cambios...
-                      </span>
+                      <SpinnerLoader text="Guardando cambios" />
                     ) : (
                       'Guardar cambios'
                     )}

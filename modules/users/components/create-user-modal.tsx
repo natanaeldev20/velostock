@@ -8,7 +8,6 @@ import {
   Input,
   Label,
   Modal,
-  Spinner,
   TextField,
   toast,
   useOverlayState
@@ -18,6 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { CreateUser, createUserSchema } from '../schemas/user.schema'
 import { createUser } from '../actions'
 import { AVATARS_LIST, DEFAULT_AVATAR } from '@/shared/constants/avatar'
+import { SpinnerLoader } from '@/shared/components/spinner-loader'
 
 export function CreateUserModal() {
   const state = useOverlayState({ defaultOpen: false })
@@ -219,14 +219,7 @@ export function CreateUserModal() {
               >
                 {({ isPending }) => (
                   <>
-                    {isPending ? (
-                      <span className="flex flex-row items-center gap-2">
-                        <Spinner />
-                        Guardando
-                      </span>
-                    ) : (
-                      'Guardar'
-                    )}
+                    {isPending ? <SpinnerLoader text="Guardando" /> : 'Guardar'}
                   </>
                 )}
               </Button>

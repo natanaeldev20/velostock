@@ -8,9 +8,9 @@ import { FilterStatus } from '@/shared/domain/types/status'
 import { StatusFilter } from '@/shared/components/search/status-filter'
 import { DeleteAllCategoriesModal } from '@/modules/categories/components/delete-all-categories-modal'
 import { CategoryFilter } from './category-filter'
-import type { ProductsTableProps } from '../contracts/product.contract'
+import type { ProductsProps } from '../contracts/product.contract'
 
-export function ProductTable({ products, categories }: ProductsTableProps) {
+export function ProductTable({ products }: ProductsProps) {
   const [filter, setFilter] = useState<FilterStatus>('all')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
@@ -37,10 +37,7 @@ export function ProductTable({ products, categories }: ProductsTableProps) {
     <div className="w-full flex flex-col gap-4 md:max-w-4xl md:mx-auto">
       <div className="flex flex-col gap-2 sm:justify-end  sm:items-center sm:flex-row">
         <div className="flex flex-col gap-2 sm:flex-row">
-          <CategoryFilter
-            categories={categories}
-            onChange={setSelectedCategory}
-          />
+          <CategoryFilter onChange={setSelectedCategory} />
           <StatusFilter onFilterChange={setFilter} />
         </div>
         <div className="flex flex-row gap-2 justify-end">

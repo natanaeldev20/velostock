@@ -1,11 +1,26 @@
-import { Label, ListBox, Select } from '@heroui/react'
-import type { Key } from 'react'
-import type { CategoriesFilterProps } from '@/modules/categories/contracts/category.contract'
+'use client'
+
+import { ListBox, Select } from '@heroui/react'
+import { useEffect, useState, type Key } from 'react'
+import { Category } from '@/modules/categories/infrastructure/category.mapper'
+import { getCategories } from '@/modules/categories/actions'
 
 export function CategoryFilter({
-  categories,
   onChange
-}: CategoriesFilterProps) {
+}: {
+  onChange: (name: string) => void
+}) {
+  const [categories, setCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    async function getData() {
+      const { data } = await getCategories()
+      setCategories(data ?? [])
+    }
+
+    getData()
+  }, [])
+
   const handleCategoryFilter = (key: Key | null) => {
     if (key) {
       onChange(key as string)

@@ -8,6 +8,7 @@ import {
   type CreateInventoryMovement
 } from '../schemas/movement.schema'
 import { authService } from '@/modules/auth/services/auth.service'
+import { revalidatePath } from 'next/cache'
 
 export const getInventoryMovements = async () =>
   handleAction(() => inventoryMovementService.getMany())
@@ -32,7 +33,9 @@ export const createInventoryMovement = async (
     async () => {
       const validatedData = validateData(createInventoryMovementSchema, rawData)
       const { userId } = await authService.getId()
-      return inventoryMovementService.create(userId, validatedData)
+      const res = await inventoryMovementService.create(userId, validatedData)
+      revalidatePath('/admin/inventory-movements')
+      return res
     },
     { successMessage: () => `Nuevo movimiento creado con exito.` }
   )

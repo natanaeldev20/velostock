@@ -8,11 +8,11 @@ import {
   Label,
   Input,
   ErrorMessage,
-  Spinner,
   toast
 } from '@heroui/react'
 import { Pencil } from '@gravity-ui/icons'
 import { updateCategory } from '../actions'
+import { SpinnerLoader } from '@/shared/components/spinner-loader'
 
 export function EditCategoryDrawer({ category }: CategoryProps) {
   const {
@@ -79,10 +79,7 @@ export function EditCategoryDrawer({ category }: CategoryProps) {
                 {({ isPending }) => (
                   <>
                     {isPending ? (
-                      <span className="flex flex-row gap-2">
-                        <Spinner color="current" size="sm" />
-                        Guardando cambios
-                      </span>
+                      <SpinnerLoader text="Guardando cambios" />
                     ) : (
                       'Guardar cambios'
                     )}

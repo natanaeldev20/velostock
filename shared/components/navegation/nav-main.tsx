@@ -24,7 +24,7 @@ const navItems: {
   { icon: Persons, label: 'Usuarios', url: '/admin/users' },
   { icon: Folders, label: 'Categorías', url: '/admin/categories' },
   { icon: Box, label: 'Productos', url: '/admin/products' },
-  { icon: Boxes3, label: 'Movimientos', url: '/admin/inventory' },
+  { icon: Boxes3, label: 'Movimientos', url: '/admin/inventory-movements' },
   { icon: ListCheck, label: 'Actividades', url: '/admin/actividades' }
 ]
 

@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client'
 export const productSelect = {
   id: true,
   name: true,
-  category: { select: { name: true } },
+  category: { select: { id: true, name: true } },
   description: true,
   stock: true,
   price: true,
@@ -24,6 +24,7 @@ export type Product = {
   isActive: boolean
   isSelect: boolean
   category: {
+    id: string
     name: string
   }
 }

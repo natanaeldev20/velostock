@@ -1,5 +1,4 @@
 'use client'
-
 import {
   ErrorMessage,
   Input,
@@ -11,19 +10,20 @@ import {
   Button,
   TextArea,
   toast,
-  Spinner,
   useOverlayState
 } from '@heroui/react'
 import { Controller, useForm } from 'react-hook-form'
 import { CreateProduct } from '../schemas/product.schema'
 import { CirclePlusFill } from '@gravity-ui/icons'
-import type { CategoriesProps } from '@/modules/categories/contracts/category.contract'
-import { Key } from 'react'
+import { type Key, useState, useEffect } from 'react'
 import { createProduct } from '../actions'
+import { SpinnerLoader } from '@/shared/components/spinner-loader'
+import { Category } from '@/modules/categories/infrastructure/category.mapper'
+import { getCategories } from '@/modules/categories/actions'
 
-export function CreateProductModal({ categories }: CategoriesProps) {
+export function CreateProductModal() {
+  const [categories, setCategories] = useState<Category[]>([])
   const {
-    watch,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -35,7 +35,6 @@ export function CreateProductModal({ categories }: CategoriesProps) {
       description: ''
     }
   })
-  const current = watch('price')
   const state = useOverlayState({ defaultOpen: false })
 
   const onSubmit = async (data: CreateProduct) => {
@@ -48,6 +47,16 @@ export function CreateProductModal({ categories }: CategoriesProps) {
     state.close()
     reset()
   }
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await getCategories()
+      setCategories(data ?? [])
+    }
+
+    getData()
+  }, [state.isOpen])
+
   return (
     <Modal isOpen={state.isOpen} onOpenChange={state.setOpen}>
       <Button className="bg-indigo-600 transition-all hover:bg-indigo-500">
@@ -67,7 +76,6 @@ export function CreateProductModal({ categories }: CategoriesProps) {
                 onSubmit={handleSubmit(onSubmit)}
                 className="w-full px-2 pb-2 flex flex-col gap-4"
               >
-                <p>{current}</p>
                 <Controller
                   name="name"
                   control={control}
@@ -147,7 +155,10 @@ export function CreateProductModal({ categories }: CategoriesProps) {
                       <Input
                         variant="secondary"
                         type="number"
-                        onChange={(e) => onChange(Number(e.target.value))}
+                        onChange={(e) => {
+                          const val = e.target.value
+                          onChange(val === '' ? undefined : Number(val))
+                        }}
                         {...restField}
                       />
                     </TextField>
@@ -173,14 +184,7 @@ export function CreateProductModal({ categories }: CategoriesProps) {
               >
                 {({ isPending }) => (
                   <>
-                    {isPending ? (
-                      <span className="flex flex-row items-center gap-1">
-                        <Spinner size="sm" />
-                        Guardando
-                      </span>
-                    ) : (
-                      'Guardar'
-                    )}
+                    {isPending ? <SpinnerLoader text="Guardando" /> : 'Guardar'}
                   </>
                 )}
               </Button>

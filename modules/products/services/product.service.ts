@@ -17,7 +17,7 @@ export const productService: ProductService = {
           }
         : { deletedAt: null },
       select: productSelect,
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'desc' }
     })
 
     return products.map((p) => ({

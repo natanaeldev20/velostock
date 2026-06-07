@@ -8,19 +8,28 @@ import {
 import { InventoryMovementService } from '../contracts/inventory-movement.contract'
 
 export const inventoryMovementService: InventoryMovementService = {
-  getMany(): Promise<InventoryMovement[]> {
-    return prisma.inventoryMovement.findMany({
+  async getMany(): Promise<InventoryMovement[]> {
+    const movements = await prisma.inventoryMovement.findMany({
       select: inventoryMovementSelect,
       orderBy: { createdAt: 'desc' }
     })
+    return movements.map((m) => ({
+      ...m,
+      priceAtMove: Number(m.priceAtMove)
+    }))
   },
 
-  getRecents(): Promise<InventoryMovement[]> {
-    return prisma.inventoryMovement.findMany({
+  async getRecents(): Promise<InventoryMovement[]> {
+    const movements = await prisma.inventoryMovement.findMany({
       select: inventoryMovementSelect,
       take: 5,
       orderBy: { createdAt: 'desc' }
     })
+
+    return movements.map((m) => ({
+      ...m,
+      priceAtMove: Number(m.priceAtMove)
+    }))
   },
 
   async getById(inventoryMovementId: string): Promise<InventoryMovement> {
@@ -33,7 +42,10 @@ export const inventoryMovementService: InventoryMovementService = {
       throw new AppError('No se encontro el movimiento de inventario.', true)
     }
 
-    return inventoryMovement
+    return {
+      ...inventoryMovement,
+      priceAtMove: Number(inventoryMovement.priceAtMove)
+    }
   },
 
   countAll(): Promise<number> {
@@ -101,7 +113,10 @@ export const inventoryMovementService: InventoryMovementService = {
           }
         })
       }
-      return newInventoryMovement
+      return {
+        ...newInventoryMovement,
+        priceAtMove: Number(newInventoryMovement.priceAtMove)
+      }
     })
   }
 }

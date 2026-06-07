@@ -12,10 +12,10 @@ export interface InventoryMovementService {
   ) => Promise<InventoryMovement>
 }
 
-export interface MovementRowProps {
+export interface MovementProps {
   movement: InventoryMovement
 }
 
-export interface MovementTableProps {
+export interface MovementsProps {
   movements: InventoryMovement[]
 }

@@ -1,9 +1,9 @@
 import { Avatar, TableCell, TableRow } from '@heroui/react'
 import { formatDate, formatHour12 } from '@/shared/utils/date-utils'
 import { formatPeruCurrency } from '@/shared/utils/number-utils'
-import { MovementRowProps } from '../contracts/inventory-movement.contract'
+import type { MovementProps } from '../contracts/inventory-movement.contract'
 
-export function MovementRow({ movement }: MovementRowProps) {
+export function MovementRow({ movement }: MovementProps) {
   const DEFAULT_AVATAR =
     'https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/red.jpg'
   const AVATAR = movement.user.imgUrl ?? DEFAULT_AVATAR

@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Prisma, Type } from '@prisma/client'
 
 export const inventoryMovementSelect = {
   id: true,
@@ -14,6 +14,27 @@ export const inventoryMovementSelect = {
   date: true
 } satisfies Prisma.InventoryMovementSelect
 
-export type InventoryMovement = Prisma.InventoryMovementGetPayload<{
-  select: typeof inventoryMovementSelect
-}>
+// export type InventoryMovement = Prisma.InventoryMovementGetPayload<{
+//   select: typeof inventoryMovementSelect
+// }>
+
+export type InventoryMovement = {
+  id: string
+  type: Type
+  priceAtMove: number
+  quantity: number
+  date: Date
+  product: {
+    id: string
+    name: string
+    category: {
+      name: string
+    }
+  }
+  user: {
+    name: string
+    lastName: string
+    imgUrl: string | null
+    username: string
+  }
+}

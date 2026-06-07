@@ -12,15 +12,13 @@ export default async function ProductsPage({
 }) {
   const { search } = await searchParams
 
-  const categeries = await getCategories()
-
   return (
     <Section>
       <SiteHeader
         title="Gestión de productos"
         description="Registro, control y administración de productos del sistema"
       >
-        <CreateProductModal categories={categeries.data ?? []} />
+        <CreateProductModal />
       </SiteHeader>
       <Container>
         <ProductContainer search={search} />
