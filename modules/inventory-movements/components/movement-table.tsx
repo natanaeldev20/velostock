@@ -4,7 +4,7 @@ import type { MovementsProps } from '../contracts/inventory-movement.contract'
 
 export function MovementTable({ movements }: MovementsProps) {
   return (
-    <Table>
+    <Table className="h-[400px]">
       <Table.ScrollContainer>
         <Table.Content>
           <Table.Header>
@@ -13,6 +13,7 @@ export function MovementTable({ movements }: MovementsProps) {
             <Table.Column>Tipo ENTRADA/SALIDA</Table.Column>
             <Table.Column>Producto</Table.Column>
             <Table.Column>Cantidad</Table.Column>
+            <Table.Column>Precio</Table.Column>
             <Table.Column>Precio Mov.</Table.Column>
             <Table.Column>Usuario</Table.Column>
           </Table.Header>

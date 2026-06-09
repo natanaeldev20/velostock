@@ -8,13 +8,25 @@ import {
 import { InventoryMovementService } from '../contracts/inventory-movement.contract'
 
 export const inventoryMovementService: InventoryMovementService = {
-  async getMany(): Promise<InventoryMovement[]> {
+  async getMany(
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<InventoryMovement[]> {
+    const finalEndDate = endDate
+      ? new Date(endDate.setHours(23, 59, 59, 999))
+      : undefined
+
     const movements = await prisma.inventoryMovement.findMany({
       select: inventoryMovementSelect,
+      where:
+        startDate && finalEndDate
+          ? { createdAt: { gte: startDate, lte: finalEndDate } }
+          : undefined,
       orderBy: { createdAt: 'desc' }
     })
     return movements.map((m) => ({
       ...m,
+      product: { ...m.product, price: Number(m.product.price) },
       priceAtMove: Number(m.priceAtMove)
     }))
   },
@@ -28,6 +40,7 @@ export const inventoryMovementService: InventoryMovementService = {
 
     return movements.map((m) => ({
       ...m,
+      product: { ...m.product, price: Number(m.product.price) },
       priceAtMove: Number(m.priceAtMove)
     }))
   },
@@ -44,6 +57,10 @@ export const inventoryMovementService: InventoryMovementService = {
 
     return {
       ...inventoryMovement,
+      product: {
+        ...inventoryMovement.product,
+        price: Number(inventoryMovement.product.price)
+      },
       priceAtMove: Number(inventoryMovement.priceAtMove)
     }
   },
@@ -115,6 +132,10 @@ export const inventoryMovementService: InventoryMovementService = {
       }
       return {
         ...newInventoryMovement,
+        product: {
+          ...newInventoryMovement.product,
+          price: Number(newInventoryMovement.product.price)
+        },
         priceAtMove: Number(newInventoryMovement.priceAtMove)
       }
     })

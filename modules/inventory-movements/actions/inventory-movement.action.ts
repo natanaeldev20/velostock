@@ -10,8 +10,8 @@ import {
 import { authService } from '@/modules/auth/services/auth.service'
 import { revalidatePath } from 'next/cache'
 
-export const getInventoryMovements = async () =>
-  handleAction(() => inventoryMovementService.getMany())
+export const getInventoryMovements = async (startDate?: Date, endDate?: Date) =>
+  handleAction(() => inventoryMovementService.getMany(startDate, endDate))
 
 export const getRecentInventoryMovements = async () =>
   handleAction(() => inventoryMovementService.getRecents())

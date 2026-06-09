@@ -3,7 +3,12 @@ import { Prisma, Type } from '@prisma/client'
 export const inventoryMovementSelect = {
   id: true,
   product: {
-    select: { id: true, name: true, category: { select: { name: true } } }
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      category: { select: { name: true } }
+    }
   },
   user: {
     select: { name: true, lastName: true, imgUrl: true, username: true }
@@ -27,6 +32,8 @@ export type InventoryMovement = {
   product: {
     id: string
     name: string
+    price: number
+
     category: {
       name: string
     }

@@ -1,4 +1,5 @@
 import { CreateMovementModal } from '@/modules/inventory-movements/components/create-movement-modal'
+import { InventoryMovementContainer } from '@/modules/inventory-movements/components/inventory-movement-container'
 import { Container } from '@/shared/components/container'
 import { Section } from '@/shared/components/section'
 import { SiteHeader } from '@/shared/components/site-header'
@@ -12,7 +13,9 @@ export default function InventoryMovementsPage() {
       >
         <CreateMovementModal />
       </SiteHeader>
-      {/* <Container></Container> */}
+      <Container>
+        <InventoryMovementContainer />
+      </Container>
     </Section>
   )
 }

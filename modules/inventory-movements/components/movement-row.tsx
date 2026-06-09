@@ -19,6 +19,9 @@ export function MovementRow({ movement }: MovementProps) {
       </TableCell>
       <TableCell>{movement.product.name}</TableCell>
       <TableCell>{movement.quantity}</TableCell>
+      <TableCell>
+        {formatPeruCurrency(Number(movement.product.price))}
+      </TableCell>
       <TableCell>{formatPeruCurrency(Number(movement.priceAtMove))}</TableCell>
       <TableCell className="w-50">
         <div className="flex flex-row items-center gap-3">

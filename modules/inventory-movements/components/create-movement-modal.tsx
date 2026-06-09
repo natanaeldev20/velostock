@@ -27,10 +27,12 @@ import { CirclePlusFill } from '@gravity-ui/icons'
 import { SpinnerLoader } from '@/shared/components/spinner-loader'
 import { createInventoryMovement } from '../actions'
 import { Type } from '@prisma/client'
+import { useRouter } from 'next/navigation'
 
 export function CreateMovementModal() {
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProduct, setSelectedProduct] = useState<Product>()
+  const router = useRouter()
 
   const state = useOverlayState({ defaultOpen: false })
   const {
@@ -54,6 +56,7 @@ export function CreateMovementModal() {
     toast.success(res.message)
     state.close()
     reset()
+    router.refresh()
   }
 
   useEffect(() => {
