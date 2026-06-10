@@ -23,6 +23,7 @@ export function DeleteProductDrawer({
       title={`Estas seguro de eliminar el producto ${name}`}
       description="El producto se movera a la papelera"
       onConfirm={handleDelete}
+      buttonText="Mover a papelera"
     />
   )
 }

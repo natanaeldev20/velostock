@@ -23,6 +23,7 @@ export function DeleteActiviyDrawer({ activityId }: { activityId: string }) {
       title="Estas seguro de eliminar esta actividad?"
       description="La actividad se eliminara permanentemente"
       onConfirm={handleDelete}
+      buttonText="Mover a papelera"
     />
   )
 }

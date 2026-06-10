@@ -11,7 +11,13 @@ export const inventoryMovementSelect = {
     }
   },
   user: {
-    select: { name: true, lastName: true, imgUrl: true, username: true }
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      imgUrl: true,
+      username: true
+    }
   },
   type: true,
   priceAtMove: true,
@@ -39,6 +45,7 @@ export type InventoryMovement = {
     }
   }
   user: {
+    id: string
     name: string
     lastName: string
     imgUrl: string | null

@@ -25,6 +25,7 @@ export function DeleteUserDrawer({ user }: UserProps) {
       description="El usuario se movera a la papelera"
       imgUrl={AVATAR || DEFAULT_AVATAR}
       fallback={FALLBACK}
+      buttonText="Mover a papelera"
     />
   )
 }

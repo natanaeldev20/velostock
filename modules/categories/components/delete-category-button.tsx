@@ -18,6 +18,7 @@ export function DeleteCategoryDrawer({ category }: CategoryProps) {
       title={`Estas seguro de eliminar a la categoría ${category.name}`}
       description="La categoría se movera a la papelera"
       onConfirm={handleDelete}
+      buttonText="Mover a papelera"
     />
   )
 }

@@ -6,7 +6,7 @@ import { Type } from '@prisma/client'
 export function FilterType({
   onChange
 }: {
-  onChange: (key: Type | 'TODO') => void
+  onChange: (key: Type | 'TODOS') => void
 }) {
   function handleFilterType(key: Key | null) {
     if (key) {
@@ -27,9 +27,9 @@ export function FilterType({
       </Select.Trigger>
       <Select.Popover>
         <ListBox>
-          <ListBox.Item id="TODO">TODO</ListBox.Item>
-          <ListBox.Item id="ENTRADA">ENTRADA</ListBox.Item>
-          <ListBox.Item id="SALIDA">SALIDA</ListBox.Item>
+          <ListBox.Item id="TODOS">Todos los tipos</ListBox.Item>
+          <ListBox.Item id="ENTRADA">Entrada</ListBox.Item>
+          <ListBox.Item id="SALIDA">Salida</ListBox.Item>
         </ListBox>
       </Select.Popover>
     </Select>

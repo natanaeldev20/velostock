@@ -6,13 +6,15 @@ export function DeleteDrawer({
   title,
   description,
   imgUrl,
-  fallback
+  fallback,
+  buttonText
 }: {
   onConfirm: () => void
   title: string
   description: string
   imgUrl?: string
   fallback?: string
+  buttonText: string
 }) {
   return (
     <Drawer>
@@ -44,7 +46,7 @@ export function DeleteDrawer({
                 Cancelar
               </Button>
               <Button slot="close" variant="danger" onPress={onConfirm}>
-                Mover a papelera
+                {buttonText}
               </Button>
             </Drawer.Footer>
           </Drawer.Dialog>
