@@ -25,7 +25,7 @@ const navItems: {
   { icon: Folders, label: 'Categorías', url: '/admin/categories' },
   { icon: Box, label: 'Productos', url: '/admin/products' },
   { icon: Boxes3, label: 'Movimientos', url: '/admin/inventory-movements' },
-  { icon: ListCheck, label: 'Actividades', url: '/admin/actividades' }
+  { icon: ListCheck, label: 'Actividades', url: '/admin/activities' }
 ]
 
 export function NavMain() {

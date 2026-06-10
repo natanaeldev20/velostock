@@ -1,8 +1,8 @@
 import { EmptyState } from '@/shared/components/empty-state'
-import type { RecentActivityListProps } from '../contracts/activity.contract'
+import type { RecentActivitiesProps } from '../contracts/activity.contract'
 import { RecentActivityCard } from './recent-activity-card'
 
-export function RecentActivitiesList({ activities }: RecentActivityListProps) {
+export function RecentActivitiesList({ activities }: RecentActivitiesProps) {
   if (activities.length === 0)
     return (
       <EmptyState

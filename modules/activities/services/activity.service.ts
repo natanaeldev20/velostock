@@ -12,7 +12,7 @@ export const activityService: ActivityService = {
   getMany(): Promise<Activity[]> {
     return prisma.activity.findMany({
       select: activitySelect,
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'desc' }
     })
   },
 

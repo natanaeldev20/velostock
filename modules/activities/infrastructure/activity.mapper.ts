@@ -2,9 +2,12 @@ import { Prisma } from '@prisma/client'
 import { userSelect } from '@/modules/users/infrastructure/user.mapper'
 
 export const activitySelect = {
+  id: true,
   actionType: true,
   entity: true,
   description: true,
+  createdAt: true,
+  metadata: true,
   user: {
     select: { ...userSelect }
   }

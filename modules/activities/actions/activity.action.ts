@@ -3,6 +3,7 @@
 import { handleAction } from '@/shared/infrastructure/handlers/handle-action'
 import { activityService } from '../services/activity.service'
 import { validateId } from '@/shared/utils/validations'
+import { revalidatePath } from 'next/cache'
 
 export const getActivities = async () =>
   handleAction(() => activityService.getMany())
@@ -18,9 +19,11 @@ export const getActivity = async (activityId: string) =>
 
 export const deleteActivity = async (activityId: string) =>
   handleAction(
-    () => {
+    async () => {
       const validatedId = validateId(activityId)
-      return activityService.delete(validatedId)
+      const res = await activityService.delete(validatedId)
+      revalidatePath('/admin/activities')
+      return res
     },
     { successMessage: () => 'Movimiento de inventario eliminado con exitó' }
   )
