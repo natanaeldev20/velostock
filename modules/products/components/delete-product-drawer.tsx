@@ -1,18 +1,20 @@
+'use client'
+
 import { DeleteDrawer } from '@/shared/components/delete-drawer'
-import { hardDeleteProduct } from '../actions'
+import { softDeleteProduct } from '../actions'
 import { toast } from '@heroui/react'
 
 export function DeleteProductDrawer({
-  id,
+  productId,
   name
 }: {
-  id: string
+  productId: string
   name: string
 }) {
   const handleDelete = async () => {
-    const res = await hardDeleteProduct(id)
+    const res = await softDeleteProduct(productId)
     if (!res.ok) {
-      toast.danger('No se pudo eliminar el producto')
+      toast.danger(res.message)
       return
     }
     toast.success(res.message)

@@ -5,6 +5,7 @@ export interface UserService {
   getMany: (search?: string) => Promise<User[]>
   getManyDeleted: () => Promise<User[]>
   getManyActives: () => Promise<User[]>
+  getAll: () => Promise<User[]>
   getById: (userId: string) => Promise<User>
   getProfile: (userId: string) => Promise<UserProfile>
   getNav: (userId: string) => Promise<UserNav>

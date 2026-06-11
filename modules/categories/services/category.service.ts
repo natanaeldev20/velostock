@@ -6,7 +6,6 @@ import type { UpdateCategory, CreateCategory } from '../schemas/category.schema'
 import { AppError } from '@/shared/domain/errors/app-error'
 import type { CategoryServices } from '../contracts/category.contract'
 import prisma from '@/shared/infrastructure/database/db'
-import { text } from 'stream/consumers'
 
 export const categoryService: CategoryServices = {
   getMany(search?: string): Promise<Category[]> {
@@ -32,6 +31,13 @@ export const categoryService: CategoryServices = {
       where: { isActive: true, deletedAt: null },
       select: categorySelect,
       orderBy: { createdAt: 'asc' }
+    })
+  },
+
+  getAll(): Promise<Category[]> {
+    return prisma.category.findMany({
+      select: categorySelect,
+      orderBy: { createdAt: 'desc' }
     })
   },
 

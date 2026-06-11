@@ -52,6 +52,18 @@ export const productService: ProductService = {
     }))
   },
 
+  async getAll(): Promise<Product[]> {
+    const products = await prisma.product.findMany({
+      select: productSelect,
+      orderBy: { createdAt: 'desc' }
+    })
+
+    return products.map((product) => ({
+      ...product,
+      price: Number(product.price)
+    }))
+  },
+
   async getById(productId: string): Promise<Product> {
     const product = await prisma.product.findUnique({
       where: { id: productId },

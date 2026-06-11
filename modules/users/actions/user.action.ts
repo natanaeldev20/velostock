@@ -25,6 +25,8 @@ export const getDeletedUsers = async () =>
 export const getActiveUsers = async () =>
   handleAction(() => userService.getManyActives())
 
+export const getAllUsers = async () => handleAction(() => userService.getAll())
+
 export const getUser = async (userId: string) =>
   handleAction(() => {
     const validatedId = validateId(userId)
@@ -95,7 +97,7 @@ export const softDeleteUser = async (userId: string) =>
 
       if (validatedId === autorId) {
         throw new AppError(
-          'No puedes eliminar a un usuario con la session activa',
+          'No se pudo mover a la papelera al usuario porque tiene la sesion activa',
           true
         )
       }
@@ -105,7 +107,9 @@ export const softDeleteUser = async (userId: string) =>
       revalidatePath('/admin/users')
       return res
     },
-    { successMessage: ({ name }) => `Usuario ${name} eliminado(a) con exito` }
+    {
+      successMessage: ({ name }) => `Se movio a la papelera al usuario ${name}`
+    }
   )
 
 export const hardDeleteUser = async (userId: string) =>
@@ -122,12 +126,11 @@ export const hardDeleteUser = async (userId: string) =>
       }
 
       const res = await userService.hardDelete(autorId, validatedId)
-      revalidatePath('/admin/users')
+      revalidatePath('/admin/trash')
       return res
     },
     {
-      successMessage: ({ name }) =>
-        `Usuario ${name} eliminado(a) difinitivamente con exito`
+      successMessage: ({ name }) => `Se elimino al usuario ${name}`
     }
   )
 
@@ -142,8 +145,8 @@ export const softDeleteManyUsers = async () =>
     {
       successMessage: ({ count }) =>
         count === 1
-          ? 'Se eliminó un usuario con éxito'
-          : `${count} eliminados con éxito`
+          ? 'Se movio a la papelera un usuario'
+          : `${count} se movieron a la papelera`
     }
   )
 
@@ -152,7 +155,9 @@ export const restoreUser = async (userId: string) =>
     async () => {
       const { userId: autorId } = await authService.getId()
       const validatedId = validateId(userId)
-      return userService.restore(autorId, validatedId)
+      const res = await userService.restore(autorId, validatedId)
+      revalidatePath('/admin/trash')
+      return res
     },
     {
       successMessage: ({ name }) =>

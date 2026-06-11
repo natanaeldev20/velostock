@@ -25,6 +25,9 @@ export const getDeletedProducts = async () =>
 export const getActiveProducts = async () =>
   handleAction(() => productService.getManyActives())
 
+export const getAllProducts = async () =>
+  handleAction(() => productService.getAll())
+
 export const getProduct = async (productId: string) =>
   handleAction(() => {
     const validatedId = validateId(productId)
@@ -67,7 +70,7 @@ export const updateProduct = async (
       return res
     },
     {
-      successMessage: ({ name }) => `Producto ${name} actualizado con exito.`
+      successMessage: ({ name }) => `Producto ${name} actualizado con exito`
     }
   )
 
@@ -82,7 +85,7 @@ export const softDeleteProduct = async (productId: string) =>
       return res
     },
     {
-      successMessage: ({ name }) => `Producto ${name} eliminado con exito.`
+      successMessage: ({ name }) => `Se movio a la papelera el producto ${name}`
     }
   )
 
@@ -93,12 +96,11 @@ export const hardDeleteProduct = async (productId: string) =>
 
       const validatedId = validateId(productId)
       const res = await productService.hardDelete(userId, validatedId)
-      revalidatePath('/admin/products')
+      revalidatePath('/admin/trash')
       return res
     },
     {
-      successMessage: ({ name }) =>
-        `Producto ${name} eliminado definitivamente.`
+      successMessage: ({ name }) => `Se elimino el prodcuto ${name}`
     }
   )
 
@@ -114,8 +116,8 @@ export const softDeleteManyProducts = async () =>
     {
       successMessage: ({ count }) =>
         count === 1
-          ? 'Se eliminó un producto con éxito.'
-          : `${count} eliminados con éxito.`
+          ? 'Se movio a la papelera un producto'
+          : `${count} productos se movieron a la papelera`
     }
   )
 
@@ -126,11 +128,11 @@ export const restoreProduct = async (productId: string) =>
 
       const validatedId = validateId(productId)
       const res = await productService.restore(userId, validatedId)
-      revalidatePath('/admin/products')
+      revalidatePath('/admin/trash')
       return res
     },
     {
-      successMessage: ({ name }) => `Producto ${name} restaurado con exito.`
+      successMessage: ({ name }) => `Producto ${name} restaurado con exito`
     }
   )
 

@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import { ActivitiesProps } from '../contracts/activity.contract'
 import { ActivityTable } from './activity-table'
 import { DatePickerX } from '@/shared/components/date-picker-x'
-import type { DateValue } from '@heroui/react'
+import { Button, type DateValue } from '@heroui/react'
 import { FilterActionType } from './filter-action-type'
 import { ActionType, Entity } from '@prisma/client'
 import { FilterEntity } from './filter-entity'
@@ -90,6 +90,15 @@ export function ActivityFilterContainer({ activities }: ActivitiesProps) {
         </div>
       </div>
       <ActivityTable activities={filteredActivities} />
+      <Button
+        onPress={() => {
+          setStartDate(null)
+          setEndDate(null)
+        }}
+        className="bg-indigo-600 transition-all hover:bg-indigo-500"
+      >
+        Mostra todo
+      </Button>
     </>
   )
 }

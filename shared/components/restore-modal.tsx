@@ -10,8 +10,8 @@ export function RestoreModal({
 }: {
   title: string
   description: string
-  imgUrl: string
-  name: string
+  imgUrl?: string
+  name?: string
   onPress: () => void
 }) {
   return (
@@ -29,13 +29,15 @@ export function RestoreModal({
             <Modal.Body>
               <div className="space-y-4">
                 <p>{description}</p>
-                <div className="grid place-content-center">
-                  <img
-                    className="w-30 aspect-square object-cover rounded-full"
-                    src={imgUrl}
-                    alt={name}
-                  />
-                </div>
+                {imgUrl && (
+                  <div className="grid place-content-center">
+                    <img
+                      className="w-30 aspect-square object-cover rounded-full"
+                      src={imgUrl}
+                      alt={name}
+                    />
+                  </div>
+                )}
               </div>
             </Modal.Body>
             <Modal.Footer>

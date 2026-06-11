@@ -13,42 +13,6 @@ import type { CreateUser, UpdateUser } from '../schemas/user.schema'
 import type { UserService } from '../contracts/user.contract'
 
 export const userService: UserService = {
-  // getMany(search?: string): Promise<User[]> {
-  //   return prisma.user.findMany({
-  //     where: search
-  //       ? {
-  //           OR: [
-  //             { name: { contains: search, mode: 'insensitive' } },
-  //             { lastName: { contains: search, mode: 'insensitive' } },
-  //             { username: { contains: search, mode: 'insensitive' } }
-  //           ],
-  //           deletedAt: null
-  //         }
-  //       : { deletedAt: null },
-  //     select: userSelect,
-  //     orderBy: { createdAt: 'desc' }
-  //   })
-  // },
-
-  // getMany(filters?: GetUserFilters): Promise<User[]> {
-  //   return prisma.user.findMany({
-  //     select: userSelect,
-  //     where: {
-  //       deletedAt: null,
-  //       ...(filters?.name && {
-  //         name: { contains: filters.name, mode: 'insensitive' }
-  //       }),
-  //       ...(filters?.lastName && {
-  //         lastName: { contains: filters.lastName, mode: 'insensitive' }
-  //       }),
-  //       ...(filters?.username && {
-  //         username: { contains: filters.username, mode: 'insensitive' }
-  //       })
-  //     },
-  //     orderBy: { createdAt: 'desc' }
-  //   })
-  // },
-
   getMany(search?: string): Promise<User[]> {
     return prisma.user.findMany({
       select: userSelect,
@@ -70,7 +34,7 @@ export const userService: UserService = {
     return prisma.user.findMany({
       where: { deletedAt: { not: null } },
       select: userSelect,
-      orderBy: { deletedAt: 'asc' }
+      orderBy: { deletedAt: 'desc' }
     })
   },
 
@@ -79,6 +43,13 @@ export const userService: UserService = {
       where: { deletedAt: { not: null } },
       select: userSelect,
       orderBy: { createdAt: 'asc' }
+    })
+  },
+
+  getAll(): Promise<User[]> {
+    return prisma.user.findMany({
+      select: userSelect,
+      orderBy: { createdAt: 'desc' }
     })
   },
 

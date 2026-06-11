@@ -55,7 +55,7 @@ export function InventoryMovementContainer() {
   return (
     <div className="space-y-4">
       <div className="w-full flex flex-col gap-4 sm:gap-0 sm:flex-row sm:justify-between">
-        <div className="grid grid-cols-2 items-center gap-4">
+        <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2">
           <FilterUser onChange={setFilterUser} />
           <FilterType onChange={setFilterType} />
         </div>

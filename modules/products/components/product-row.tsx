@@ -34,7 +34,7 @@ export function ProductRow({ product }: ProductProps) {
           />
           <ProductDetailsModal product={product} />
           <EditProductDrawer product={product} />
-          <DeleteProductDrawer id={product.id} name={product.name} />
+          <DeleteProductDrawer productId={product.id} name={product.name} />
         </div>
       </TableCell>
     </TableRow>

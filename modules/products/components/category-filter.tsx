@@ -3,7 +3,7 @@
 import { ListBox, Select } from '@heroui/react'
 import { useEffect, useState, type Key } from 'react'
 import { Category } from '@/modules/categories/infrastructure/category.mapper'
-import { getCategories } from '@/modules/categories/actions'
+import { getAllCategories } from '@/modules/categories/actions'
 
 export function CategoryFilter({
   onChange
@@ -14,7 +14,7 @@ export function CategoryFilter({
 
   useEffect(() => {
     async function getData() {
-      const { data } = await getCategories()
+      const { data } = await getAllCategories()
       setCategories(data ?? [])
     }
 

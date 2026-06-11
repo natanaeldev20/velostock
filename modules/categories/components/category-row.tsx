@@ -6,7 +6,7 @@ import { toggleCategorySelection } from '../actions'
 import { CategoryStatusModal } from './category-status-modal'
 import { CategoryDetailsModal } from './category-details-modal'
 import { EditCategoryDrawer } from './edit-category-drawer'
-import { DeleteCategoryDrawer } from './delete-category-button'
+import { DeleteCategoryDrawer } from './delete-category-drawer'
 
 export function CategoryRow({ category }: CategoryProps) {
   const handleSelection = () =>

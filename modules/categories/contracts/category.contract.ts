@@ -5,6 +5,7 @@ export interface CategoryServices {
   getMany: (search?: string) => Promise<Category[]>
   getManyDeleted: () => Promise<Category[]>
   getManyActives: () => Promise<Category[]>
+  getAll: () => Promise<Category[]>
   getById: (categoryId: string) => Promise<Category>
   countAll: () => Promise<number>
   create: (userId: string, rawData: CreateCategory) => Promise<Category>

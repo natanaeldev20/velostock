@@ -13,10 +13,10 @@ export function HardDeleteUserDrawer({ user }: UserProps) {
   async function handleHardDelete() {
     const res = await hardDeleteUser(user.id)
     if (!res.ok) {
-      toast.danger('No se pudo eliminar este usuario')
+      toast.danger(res.message)
       return
     }
-    toast.success(`Usuario ${res.data?.name} eliminado correctamente`)
+    toast.success(res.message)
   }
 
   return (
@@ -26,7 +26,7 @@ export function HardDeleteUserDrawer({ user }: UserProps) {
       onConfirm={handleHardDelete}
       imgUrl={AVATAR}
       fallback={NAME}
-      buttonText="Eliminar permanentemente"
+      buttonText="Eliminar"
     />
   )
 }

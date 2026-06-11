@@ -61,8 +61,8 @@ export function ProductTable({ products }: ProductsProps) {
               <Table.Column>Acciones</Table.Column>
             </Table.Header>
             <Table.Body>
-              {filteredProducts.map((item) => (
-                <ProductRow key={item.id} product={item} />
+              {filteredProducts.map((product) => (
+                <ProductRow key={product.id} product={product} />
               ))}
             </Table.Body>
           </Table.Content>

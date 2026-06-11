@@ -6,6 +6,7 @@ export interface ProductService {
   getMany: (search?: string) => Promise<Product[]>
   getManyDeleted: () => Promise<Product[]>
   getManyActives: () => Promise<Product[]>
+  getAll: () => Promise<Product[]>
   getById: (productId: string) => Promise<Product>
   countAll: () => Promise<number>
   create: (userId: string, rawData: CreateProduct) => Promise<Product>

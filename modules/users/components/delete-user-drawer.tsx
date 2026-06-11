@@ -15,7 +15,7 @@ export function DeleteUserDrawer({ user }: UserProps) {
       toast.danger(res.message)
       return
     }
-    toast.success(`Usuario/a ${FULL_NAMES} eliminado/a con exitó.`)
+    toast.success(res.message)
   }
 
   return (

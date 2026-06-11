@@ -25,6 +25,9 @@ export const getDeletedCategories = async () =>
 export const getActiveCategories = async () =>
   handleAction(() => categoryService.getManyActives())
 
+export const getAllCategories = async () =>
+  handleAction(() => categoryService.getAll())
+
 export const getCategory = async (categoryId: string) =>
   handleAction(() => {
     const validatedId = validateId(categoryId)
@@ -84,7 +87,8 @@ export const softDeleteCategory = async (categoryId: string) =>
       return res
     },
     {
-      successMessage: ({ name }) => `Categoría ${name} eliminada con éxito.`
+      successMessage: ({ name }) =>
+        `Se movio a la papelera la categoría ${name}`
     }
   )
 
@@ -95,11 +99,11 @@ export const hardDeleteCategory = async (categoryId: string) =>
 
       const validatedId = validateId(categoryId)
       const res = await categoryService.hardDelete(userId, validatedId)
-      revalidatePath('/admin/categories')
+      revalidatePath('/admin/trash')
       return res
     },
     {
-      successMessage: ({ name }) => `Categoría ${name} eliminada con éxito.`
+      successMessage: ({ name }) => `Se elimino la categoría ${name}`
     }
   )
 
@@ -115,8 +119,8 @@ export const softDeleteManyCategories = async () =>
     {
       successMessage: ({ count }) =>
         count === 1
-          ? 'Se elimino 1 categoria con exito.'
-          : `${count} categorias fueron eliminadas con exito.`
+          ? 'Se movio a la papelera 1 categoría'
+          : `${count} categorias se movieron a la papelera`
     }
   )
 
@@ -127,7 +131,7 @@ export const restoreCategory = async (categoryId: string) =>
 
       const validatedId = validateId(categoryId)
       const res = await categoryService.restore(userId, validatedId)
-      revalidatePath('/admin/categories')
+      revalidatePath('/admin/trash')
       return res
     },
     {
