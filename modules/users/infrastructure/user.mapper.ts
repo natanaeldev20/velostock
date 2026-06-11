@@ -14,6 +14,7 @@ export const userProfileSelect = {
   ...userSelect,
   activities: {
     select: {
+      id: true,
       actionType: true,
       entity: true,
       description: true,
@@ -22,6 +23,7 @@ export const userProfileSelect = {
   },
   inventoryMovements: {
     select: {
+      id: true,
       type: true,
       quantity: true,
       date: true,

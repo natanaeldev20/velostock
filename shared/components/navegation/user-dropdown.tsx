@@ -56,7 +56,11 @@ export function UserDropdown({ user }: UserNavData) {
               <Gear className="size-3.5 text-muted" />
             </div>
           </Dropdown.Item>
-          <Dropdown.Item id="create-users" textValue="Create users">
+          <Dropdown.Item
+            id="create-users"
+            textValue="Create users"
+            href="/admin/users"
+          >
             <div className="flex w-full items-center justify-between gap-2">
               <Label>Crear usuarios</Label>
               <Persons className="size-3.5 text-muted" />
