@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Select, ListBox, type Key, Avatar, Label } from '@heroui/react'
 import { User } from '@/modules/users/infrastructure/user.mapper'
-import { getUsers } from '@/modules/users/actions'
+import { getAllUsers } from '@/modules/users/actions'
 import { DEFAULT_AVATAR } from '@/shared/constants/avatar'
 
 export function FilterUser({ onChange }: { onChange: (key: string) => void }) {
@@ -17,7 +17,7 @@ export function FilterUser({ onChange }: { onChange: (key: string) => void }) {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await getUsers()
+      const { data } = await getAllUsers()
       setUsers(data ?? [])
     }
 

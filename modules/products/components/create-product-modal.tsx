@@ -61,7 +61,7 @@ export function CreateProductModal() {
     <Modal isOpen={state.isOpen} onOpenChange={state.setOpen}>
       <Button className="bg-indigo-600 transition-all hover:bg-indigo-500">
         <CirclePlusFill />
-        Nueva categoría
+        Nuevo producto
       </Button>
       <Modal.Backdrop>
         <Modal.Container>
